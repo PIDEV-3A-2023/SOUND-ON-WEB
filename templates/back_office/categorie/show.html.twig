@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+    <h1>Categorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ categorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ categorie.nom }}</td>
+            </tr>
+            <tr>
+                <th>Visiteur</th>
+                <td>{{ categorie.visiteur }}</td>
+            </tr>
+            <tr>
+                <th>StarCount</th>
+                <td>{{ categorie.starCount }}</td>
+            </tr>
+            <tr>
+                <th>Rate</th>
+                <td>{{ categorie.rate }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_office_categorie_index') }}">back to list</a>
+
+    <a href="{{ path('app_back_office_categorie_edit', {'id': categorie.id}) }}">edit</a>
+
+    {{ include('back_office/categorie/_delete_form.html.twig') }}
+{% endblock %}

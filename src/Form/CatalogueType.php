@@ -2,26 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Album;
+use App\Entity\Catalogue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AlbumType extends AbstractType
+class CatalogueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('nom')
-            ->add('dateCreation')
-            ->add('idUser')
+            ->add('image')
+            ->add('idCategorie')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Album::class,
+            'data_class' => Catalogue::class,
         ]);
     }
 }
