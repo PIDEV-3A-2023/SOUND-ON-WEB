@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,6 +69,7 @@
                                     <li><a href="{{ path('app_home') }}">Catalogues</a></li>
                                     <li><a href="{{ path('app_home') }}">Boutique</a></li>
                                     <li><a href="{{ path('app_home') }}">Reclamation</a></li>
+
                                 </ul>
 
                                 <!-- Login/Register & Cart Button -->
@@ -137,6 +139,7 @@
         </div>
     </section>
     <!-- ##### Hero Area End ##### -->
+{% block content %}
 
     <!-- ##### Latest Albums Area Start ##### -->
     <section class="latest-albums-area section-padding-100">
@@ -282,7 +285,6 @@
     </section>
     <!-- ##### Featured Artist Area End ##### -->
 
-   
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         <div class="container">
@@ -317,7 +319,7 @@
     <!-- Active js -->
     <script src="{{ asset('template/js/active.js') }}"></script>
     {% endblock %}
-
+    
 </body>
 
 </html>
