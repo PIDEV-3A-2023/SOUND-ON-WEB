@@ -1,8 +1,17 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Edit Musique{% endblock %}
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
 
 {% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Musique</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
     <h1>Edit Musique</h1>
 
     {{ include('back_office/musique/_form.html.twig', {'button_label': 'Update'}) }}
@@ -10,4 +19,5 @@
     <a href="{{ path('app_back_office_musique_index') }}">back to list</a>
 
     {{ include('back_office/musique/_delete_form.html.twig') }}
+    </main>
 {% endblock %}
