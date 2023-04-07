@@ -16,7 +16,7 @@ class CatalogueType extends AbstractType
         $builder
             ->add('nom')
             //->add('image')
-            ->add('imageFile', FileType::class, [
+            ->add('image', FileType::class, [
                 'required' => false,
                 'label' => 'Image',
             ])

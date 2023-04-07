@@ -1,0 +1,54 @@
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Musique</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <h1>Musique index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Chemin</th>
+                <th>DateCreation</th>
+                <th>Longueur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for musique in musiques %}
+            <tr>
+                <td>{{ musique.id }}</td>
+                <td>{{ musique.nom }}</td>
+                <td>{{ musique.chemin }}</td>
+                <td>{{ musique.dateCreation ? musique.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ musique.longueur }}</td>
+                <td>
+                    <a href="{{ path('app_back_office_musique_show', {'id': musique.id}) }}">show</a>
+                    <a href="{{ path('app_back_office_musique_edit', {'id': musique.id}) }}">edit</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_office_musique_new') }}">Create new</a>
+
+
+</main><!-- End #main -->
+{% endblock %}

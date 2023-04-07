@@ -21,7 +21,7 @@
                 <td>{{ catalogue.nom }}</td>
                 <td>{{ catalogue.image }}</td>
                 <td>
-                    <a href="{{ path('app_back_office_catalogue_show', {'id': catalogue.id}) }}">show</a>
+                 <a href="{{ path('app_back_office_catalogue_show', {'id': catalogue.id}) }}">show</a>
                     <a href="{{ path('app_back_office_catalogue_edit', {'id': catalogue.id}) }}">edit</a>
                 </td>
             </tr>
@@ -31,7 +31,10 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> 
 
+   
     <a href="{{ path('app_back_office_catalogue_new') }}">Create new</a>
+    
+
 {% endblock %}

@@ -43,6 +43,13 @@ class CatalogueController extends AbstractController
             'catalogue' => $catalogue,
             'form' => $form,
         ]);
+    } 
+    #[Route('/{id}', name: 'app_back_office_catalogue_show', methods: ['GET'])]
+    public function show(Catalogue $catalogue): Response
+    {
+        return $this->render('back_office/catalogue/show.html.twig', [
+            'catalogue' => $catalogue,
+        ]);
     }
     #[Route('/{id}/edit', name: 'app_back_office_catalogue_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Catalogue $catalogue, CatalogueRepository $catalogueRepository): Response
