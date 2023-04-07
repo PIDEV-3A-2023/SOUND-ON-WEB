@@ -74,7 +74,8 @@
                                             <li><a href="blog.html">News</a></li>
                                             <li><a href="contact.html">Contact</a></li>
                                             <li><a href="elements.html">Elements</a></li>
-                                            <li><a href="login.html">Login</a></li>
+                                            <li><a href="{{ path('register') }}">Register</a></li>
+                                            
                                             <li><a href="#">Dropdown</a>
                                                 <ul class="dropdown">
                                                     <li><a href="#">Even Dropdown</a></li>
@@ -167,6 +168,7 @@
         </div>
     </section>
     <!-- ##### Hero Area End ##### -->
+{% block content %}
 
     <!-- ##### Latest Albums Area Start ##### -->
     <section class="latest-albums-area section-padding-100">
@@ -872,6 +874,7 @@
             </div>
         </div>
     </section>
+    {% endblock %}
     <!-- ##### Contact Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->

@@ -87,6 +87,7 @@ class RegisterType extends AbstractType
             
             ->add('submit',SubmitType::class,[
                 'label' => "S'inscrire"
+                
             ])
             
         ;
