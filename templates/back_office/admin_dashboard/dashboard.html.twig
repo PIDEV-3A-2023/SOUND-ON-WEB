@@ -293,13 +293,13 @@
           </a>
         </li><!-- End F.A.Q Page Nav -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-faq.html">
+          <a class="nav-link collapsed" href="{{ path('app_back_office_catalogue_index') }}">
             <i class="bi bi-music-note-list"></i>
             <span>Catalogue</span>
           </a>
         </li><!-- End F.A.Q Page Nav -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-faq.html">
+          <a class="nav-link collapsed" href="{{ path('app_back_office_categorie_index') }}">
             <i class="bi bi-ui-checks-grid"></i>
             <span>Categorie</span>
           </a>
@@ -339,8 +339,11 @@
     </ul>
 
   </aside><!-- End Sidebar-->
+ <main id="main" class="main"> 
+ {% block content %} 
 
-  
+ {% endblock %}  
+ </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
