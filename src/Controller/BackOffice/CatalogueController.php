@@ -27,10 +27,15 @@ class CatalogueController extends AbstractController
         $catalogue = new Catalogue();
         $form = $this->createForm(CatalogueType::class, $catalogue);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $image */
+            $image = $form['image']->getData();
+            $destination = 'C:/uploadedFiles/Images/';
+            $originalFileName = pathinfo($image->getClientOriginalName(),PATHINFO_FILENAME);
+            $fileName = $originalFileName.'-'.uniqid().'.'.$image->guessExtension();
+            $image->move($destination, $fileName);
+            $catalogue->setImage('C:/uploadedFiles/Images/'.$fileName);
             $catalogueRepository->save($catalogue, true);
-
             return $this->redirectToRoute('app_back_office_catalogue_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -39,15 +44,6 @@ class CatalogueController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/{id}', name: 'app_back_office_catalogue_show', methods: ['GET'])]
-    public function show(Catalogue $catalogue): Response
-    {
-        return $this->render('back_office/catalogue/show.html.twig', [
-            'catalogue' => $catalogue,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_back_office_catalogue_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Catalogue $catalogue, CatalogueRepository $catalogueRepository): Response
     {

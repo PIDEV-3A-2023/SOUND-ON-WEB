@@ -24,7 +24,7 @@ class Categorie
     #[ORM\Column(nullable: true)]
     private ?int $starCount = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $rate = null;
 
     #[ORM\OneToMany(mappedBy: 'idCategorie', targetEntity: Musique::class, orphanRemoval: true)]
@@ -116,5 +116,10 @@ class Categorie
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->id ?? ''; // assuming that 'nom' property contains the string representation of the object
     }
 }

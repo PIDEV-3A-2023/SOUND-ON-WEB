@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
+use App\Controller\FrontOffice\CatalogueController;
 use App\Entity\Catalogue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class CatalogueType extends AbstractType
 {
@@ -13,8 +15,14 @@ class CatalogueType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('image')
+            //->add('image')
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'label' => 'Image',
+            ])
             ->add('idCategorie')
+
+
         ;
     }
 
