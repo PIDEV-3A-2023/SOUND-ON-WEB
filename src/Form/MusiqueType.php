@@ -17,18 +17,21 @@ class MusiqueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $object = $options['data'] ?? null;
+        $isEdit = $object && $object->getId();
+
         $builder
             ->add('nom')
-            ->add('chemin')
-            ->add('audioFile', FileType::class, [
+            ->add('chemin', FileType::class, [
                 'label' => 'Fichier audio',
                 'mapped' => false,
+                'required' => !$isEdit,
                 'constraints' => [
                     new File([
-                        'maxSize' => '8Mi',
+                        'maxSize' => '10Mi',
                         'mimeTypes' => [
-                            'application/mp3',
-                            'application/wav',
+                            'audio/x-wav',
+                            'audio/mpeg'
                         ],
                         'mimeTypesMessage' => 'Veuillez choisir une fichier audio'
                     ])
@@ -37,18 +40,17 @@ class MusiqueType extends AbstractType
             ->add('dateCreation')
             ->add('longueur')
             ->add('idUser', EntityType::class, [
-                'class' =>Utilisateur::class,
+                'class' => Utilisateur::class,
                 'choice_label' => 'email',
             ])
             ->add('idCategorie', EntityType::class, [
-                'class' =>Categorie::class,
+                'class' => Categorie::class,
                 'choice_label' => 'nom',
             ])
             ->add('idAlbum', EntityType::class, [
-                'class' =>Album::class,
+                'class' => Album::class,
                 'choice_label' => 'nom',
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
