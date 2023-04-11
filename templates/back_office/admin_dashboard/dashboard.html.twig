@@ -317,7 +317,7 @@
           </a>
         </li><!-- End F.A.Q Page Nav -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-faq.html">
+          <a class="nav-link collapsed"  href="{{ path('app_back_office_produit_index') }}">
             <i class="bi bi-cart4"></i>
             <span>Produits</span>
           </a>
@@ -339,9 +339,11 @@
     </ul>
 
   </aside><!-- End Sidebar-->
+  <main id="main" class="main">
+  {% block content %}
 
-  
-
+  {% endblock %}
+</main>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
