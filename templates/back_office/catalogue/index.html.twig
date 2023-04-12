@@ -21,6 +21,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Image</th>
+                <th>Categorie</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>{{ catalogue.id }}</td>
                 <td>{{ catalogue.nom }}</td>
                 <td>{{ catalogue.image }}</td>
+                <td>{{ catalogue.idCategorie.nom }}</td>
                 <td>
                  <a href="{{ path('app_back_office_catalogue_show', {'id': catalogue.id}) }}">show</a>
                     <a href="{{ path('app_back_office_catalogue_edit', {'id': catalogue.id}) }}">edit</a>

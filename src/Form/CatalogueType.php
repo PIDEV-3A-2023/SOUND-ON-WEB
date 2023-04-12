@@ -7,7 +7,9 @@ use App\Entity\Catalogue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\FileType; 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Categorie;
 
 class CatalogueType extends AbstractType
 {
@@ -15,12 +17,15 @@ class CatalogueType extends AbstractType
     {
         $builder
             ->add('nom')
-            //->add('image')
+            
             ->add('image', FileType::class, [
                 'required' => false,
                 'label' => 'Image',
             ])
-            ->add('idCategorie')
+            ->add('idCategorie', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'nom',
+            ])
 
 
         ;
