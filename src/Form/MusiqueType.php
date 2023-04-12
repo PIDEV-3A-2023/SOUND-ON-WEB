@@ -37,8 +37,6 @@ class MusiqueType extends AbstractType
                     ])
                 ]
             ])
-            ->add('dateCreation')
-            ->add('longueur')
             ->add('idUser', EntityType::class, [
                 'class' => Utilisateur::class,
                 'choice_label' => 'email',
@@ -50,6 +48,7 @@ class MusiqueType extends AbstractType
             ->add('idAlbum', EntityType::class, [
                 'class' => Album::class,
                 'choice_label' => 'nom',
+                'required' => false,
             ]);
     }
 

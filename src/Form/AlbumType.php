@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Album;
+use App\Entity\Utilisateur;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,8 +15,10 @@ class AlbumType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateCreation')
-            ->add('idUser')
+            ->add('idUser', EntityType::class, [
+                'class' => Utilisateur::class,
+                'choice_label' => 'email',
+            ])
         ;
     }
 
