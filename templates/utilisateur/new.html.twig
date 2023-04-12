@@ -1,11 +1,23 @@
-{% extends 'base.html.twig' %}
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
 
-{% block title %}New Utilisateur{% endblock %}
+
 
 {% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Utilisateur</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
     <h1>Create new Utilisateur</h1>
 
     {{ include('utilisateur/_form.html.twig') }}
 
     <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+      </main>
 {% endblock %}
