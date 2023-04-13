@@ -1,8 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My account SoundOn{% endblock %}
+{% block title %}Mon compte{% endblock %}
+
 {% block content %}
-<h2> My account - SoundOn </h2>
-Welcome dear user here you can manage your account
-<hr> - Change Password </br>
-{% endblock %}
+    <h1>Mon compte</h1>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg>
+    {% if is_granted('ROLE_ADMIN') %}
+        <small><a href="/admin">Vous êtes un administrateur, accéder au backoffice ?</a></small><br/>
+    {% endif %}
+    <p class="fw-bold">Bienvenue {{ app.user.prenom }} dans votre compte.</p><br/>
+
+   <p class="fst-italic"> C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles</p>
+   
+   
+        <p class="fst-italic">  -Modifier mot de passe
+        </p>
+
+         <p class="fst-italic">
+        -Suivre commande </p>
+
+   
+    {% endblock %}
+
