@@ -6,6 +6,7 @@ use App\Entity\Catalogue;
 use App\Form\CatalogueType;
 use App\Repository\CatalogueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,8 +59,15 @@ class CatalogueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $image */
+            $image = $form['image']->getData();
+            if($image){
+            $destination = 'C:/uploadedFiles/Images/';
+            $originalFileName = pathinfo($image->getClientOriginalName(),PATHINFO_FILENAME);
+            $fileName = $originalFileName.'-'.uniqid().'.'.$image->guessExtension();
+            $image->move($destination, $fileName);
+            $catalogue->setImage('C:/uploadedFiles/Images/'.$fileName);}
             $catalogueRepository->save($catalogue, true);
-
             return $this->redirectToRoute('app_back_office_catalogue_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,6 +81,8 @@ class CatalogueController extends AbstractController
     public function delete(Request $request, Catalogue $catalogue, CatalogueRepository $catalogueRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$catalogue->getId(), $request->request->get('_token'))) {
+            $fileSystem = new Filesystem();
+            $fileSystem->remove($catalogue->getImage());
             $catalogueRepository->remove($catalogue, true);
         }
 
