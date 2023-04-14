@@ -2,8 +2,10 @@
     {{ form_start(form) }}
         {{ form_label(form.nom) }}
         {{ form_widget(form.nom, {'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.nom) }}
         {{ form_label(form.chemin) }}
         {{ form_widget(form.chemin, {'attr': {'class': 'form-control'} }) }}
+        <span style="color:red;">{{ form_errors(form.chemin) }}</span>
         {{ form_label(form.idUser) }}
         {{ form_widget(form.idUser, {'attr': {'class': 'form-control'} }) }}
         {{ form_label(form.idCategorie) }}

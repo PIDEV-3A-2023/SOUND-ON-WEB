@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album{% endblock %}
+
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb.jpg);">
+    <div class="bradcumbContent">
+        <h2>{{album.nom}}</h2>
+    </div>
+</section>
+<!-- ##### Latest Albums Area Start ##### -->
+<section class="latest-albums-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="albums-slideshow owl-carousel">
+                    {% for m in album.musiques %}
+                    <!-- Single Album -->
+                    <div class="single-album">
+                        <img src="{{asset('template/img/bg-img/a7.jpg')}}" alt="">
+                        <div class="album-info">
+                            <a href="{{ path('app_front_office_music_show', {'id': m.id} ) }}">
+                                <h5>{{m.nom}}</h5>
+                            </a>
+                            <p>By {{m.iduser.prenom}}</p>
+                        </div>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Latest Albums Area End ##### -->
+{% endblock %}

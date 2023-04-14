@@ -35,19 +35,21 @@ class MusiqueController extends AbstractController
             // Uploading file
             /** @var UploadedFile $audioFile */
             $audioFile = $form['chemin']->getData();
-            $userId = $form->get('idUser')->getData()->getId();
-            $destination = 'C:/uploadedFiles/Music/'.$userId.'/';
-            $originalFileName = pathinfo($audioFile->getClientOriginalName(),PATHINFO_FILENAME);
-            $fileName = $originalFileName.'-'.uniqid().'.'.$audioFile->guessExtension();
-            $audioFile->move($destination, $fileName);
-            $musique->setChemin('C:/uploadedFiles/Music/'.$userId.'/'.$fileName);
-            // setting audio file duration
-            $mp3file = new mp3fileService('C:/uploadedFiles/Music/'.$userId.'/'.$fileName);
-            $duration = mp3fileService::formatTime($mp3file->getDuration());
-            $musique->setLongueur($duration);
-            // setting creation date to current date
-            $musique->setDateCreation(new \DateTime());
-            $musiqueRepository->save($musique, true);
+            if ($audioFile) {
+                $userId = $form->get('idUser')->getData()->getId();
+                $destination = 'C:/uploadedFiles/Music/' . $userId . '/';
+                $originalFileName = pathinfo($audioFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $fileName = $originalFileName . '-' . uniqid() . '.' . $audioFile->guessExtension();
+                $audioFile->move($destination, $fileName);
+                $musique->setChemin('C:/uploadedFiles/Music/' . $userId . '/' . $fileName);
+                // setting audio file duration
+                $mp3file = new mp3fileService('C:/uploadedFiles/Music/' . $userId . '/' . $fileName);
+                $duration = mp3fileService::formatTime($mp3file->getDuration());
+                $musique->setLongueur($duration);
+                // setting creation date to current date
+                $musique->setDateCreation(new \DateTime());
+                $musiqueRepository->save($musique, true);
+            }
             return $this->redirectToRoute('app_back_office_musique_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,6 +74,24 @@ class MusiqueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Uploading file
+            /** @var UploadedFile $audioFile */
+            $audioFile = $form['chemin']->getData();
+            if ($audioFile) {
+                $fileSystem = new Filesystem();
+                $fileSystem->remove($musique->getChemin());
+                $musiqueRepository->remove($musique, true);
+                $userId = $form->get('idUser')->getData()->getId();
+                $destination = 'C:/uploadedFiles/Music/' . $userId . '/';
+                $originalFileName = pathinfo($audioFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $fileName = $originalFileName . '-' . uniqid() . '.' . $audioFile->guessExtension();
+                $audioFile->move($destination, $fileName);
+                $musique->setChemin('C:/uploadedFiles/Music/' . $userId . '/' . $fileName);
+                // setting audio file duration
+                $mp3file = new mp3fileService('C:/uploadedFiles/Music/' . $userId . '/' . $fileName);
+                $duration = mp3fileService::formatTime($mp3file->getDuration());
+                $musique->setLongueur($duration);
+            }
             $musiqueRepository->save($musique, true);
 
             return $this->redirectToRoute('app_back_office_musique_index', [], Response::HTTP_SEE_OTHER);
@@ -86,7 +106,7 @@ class MusiqueController extends AbstractController
     #[Route('/{id}', name: 'app_back_office_musique_delete', methods: ['POST'])]
     public function delete(Request $request, Musique $musique, MusiqueRepository $musiqueRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$musique->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $musique->getId(), $request->request->get('_token'))) {
             $fileSystem = new Filesystem();
             $fileSystem->remove($musique->getChemin());
             $musiqueRepository->remove($musique, true);

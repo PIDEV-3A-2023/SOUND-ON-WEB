@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MusiqueRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MusiqueRepository::class)]
 class Musique
@@ -15,8 +16,14 @@ class Musique
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 1,
+        max: 20,
+        minMessage: 'Le longueur du titre doit {{ limit }} au minimum',
+        maxMessage: 'Le longueur du titre doit {{ limit }} au maximum',
+    )]
     private ?string $nom = null;
-
+    
     #[ORM\Column(length: 255)]
     private ?string $chemin = null;
 

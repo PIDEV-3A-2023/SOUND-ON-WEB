@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Music{% endblock %}
+
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb.jpg);">
+    <div class="bradcumbContent">
+        <h2>{{song.nom}}</h2>
+    </div>
+</section>
+<!-- ##### Latest Albums Area Start ##### -->
+<section class="section-padding-100">
+        <div class="container">
+            <div class="row align-items-end">
+                <div class="col-12 col-md-5 col-lg-4">
+                    <div class="featured-artist-thumb">
+                        <img src="{{asset('template/img/bg-img/fa.jpg')}}" alt="">
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 col-lg-8">
+                    <div class="">
+                        <!-- Section Heading -->
+                        <div class="section-heading text-left mb-30">
+                            <p>See what’s new</p>
+                            <h2>Buy What’s New</h2>
+                        </div>
+                        <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius
+                            rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis
+                            nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec
+                            in velit non elit pulvinar pellentesque et non eros.</p>
+                        <div class="song-play-area">
+                            <div class="song-name">
+                                <p>{{song.nom}}</p>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{{song.chemin}}">
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- ##### Latest Albums Area End ##### -->
+{% endblock %}

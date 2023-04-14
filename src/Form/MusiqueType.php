@@ -28,12 +28,12 @@ class MusiqueType extends AbstractType
                 'required' => !$isEdit,
                 'constraints' => [
                     new File([
-                        'maxSize' => '10Mi',
+                        'maxSize' => '10M',
                         'mimeTypes' => [
                             'audio/x-wav',
                             'audio/mpeg'
                         ],
-                        'mimeTypesMessage' => 'Veuillez choisir une fichier audio'
+                        'mimeTypesMessage' => 'Veuillez choisir une fichier de type audio'
                     ])
                 ]
             ])

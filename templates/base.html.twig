@@ -64,7 +64,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="{{ path('app_home') }}">Evenements</a></li>
-                                    <li><a href="{{ path('app_back_office_album_index') }}">Albums</a></li>
+                                    <li><a href="{{ path('app_front_office_album_list') }}">Albums</a></li>
                                     <li><a href="{{ path('app_home') }}">Catalogues</a></li>
                                     <li><a href="{{ path('app_home') }}">Boutique</a></li>
                                     <li><a href="{{ path('app_home') }}">Reclamation</a></li>
@@ -92,7 +92,7 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-
+    {% block content %}
     <!-- ##### Hero Area Start ##### -->
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
@@ -281,7 +281,7 @@
         </div>
     </section>
     <!-- ##### Featured Artist Area End ##### -->
-
+    {% endblock %}
    
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
