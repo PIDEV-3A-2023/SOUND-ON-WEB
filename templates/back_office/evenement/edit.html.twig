@@ -1,0 +1,14 @@
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}Edit Evenement{% endblock %}
+
+{% block body %}
+    <center><h5>Modifier Evenement</h5></center>
+<td>
+     {{ include('back_office/evenement/_form.html.twig', {'button_label': 'Modifier'}) }}
+</td>
+    <td>
+    <a href="{{ path('app_evenement_index') }}" class="btn btn-primary px-3 py-1">Retour</a>
+</td>
+    
+{% endblock %}

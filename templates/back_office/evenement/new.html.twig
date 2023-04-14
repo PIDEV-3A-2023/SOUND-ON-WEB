@@ -1,0 +1,11 @@
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}New Evenement{% endblock %}
+
+{% block body %}
+    <h4>Nouvel Evenement</h4>
+
+    {{ include('back_office/evenement/_form.html.twig') }}
+
+    <a href="{{ path('app_evenement_index') }}">Retour</a>
+{% endblock %}

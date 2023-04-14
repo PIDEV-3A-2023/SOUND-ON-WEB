@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+
+
+{#affichage #}
+<div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Evenements</h4>
+            </div>
+            <div class="row">
+           {% for evenement in evenements %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-item">
+{#affichage #}
+
+
+
+          <img src="{{ asset('uploads/evenements/' ~evenement.photo)}}" style=" width:360px; height:250px; " alt="">
+          <center><h6>{{ evenement.description }}</h6></center>
+          <p><strong style="color:#696969">Date :</strong> {{ evenement.dateEvenement ? evenement.dateEvenement|date('Y-m-d') : ''}}</p>
+          <p><strong style="color:#696969">Prix:</strong> {{ evenement.prix}}</p>
+          <p><strong style="color:#696969" >Localisation:</strong> {{ evenement.adresse }}</p>
+          <p><a href="{{ path('app_reservation_new', {'id': evenement.id}) }}" class="btn btn-info">Participer </a></p>
+       
+
+
+
+
+{#affichage #}
+        </div>
+      </div>
+      
+{#affichage #}
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
