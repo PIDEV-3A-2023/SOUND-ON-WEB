@@ -14,8 +14,9 @@
    
    <h1 class="h3 mb-3 font-weight-normal">Formulaire d'inscription</h1>
   
-    
+    {{ form_start(form,{'attr' : {'novalidate': 'novalidate'}}) }}
     {{ form(form) }}
+    {{ form_end(form) }}
     </div>
     
     {% endblock %}

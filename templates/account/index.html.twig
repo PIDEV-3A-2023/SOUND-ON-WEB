@@ -17,11 +17,22 @@
    <p class="fst-italic"> C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles</p>
    
    
-        <p class="fst-italic">  -Modifier mot de passe
-        </p>
+        
+         {{ form_label(form.password) }}
+        {{ form_widget(form.password, {'attr': {'class': 'form-control'} }) }}
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control'} }) }}
+        {{ form_label(form.prenom) }}
+        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'} }) }}
+        {{ form_label(form.login) }}
+        {{ form_widget(form.login, {'attr': {'class': 'form-control'} }) }}
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'} }) }}
 
-         <p class="fst-italic">
-        -Suivre commande </p>
+        <button class="btn">{{ button_label|default('Save') }}</button>
+        
+        
+
 
    
     {% endblock %}
