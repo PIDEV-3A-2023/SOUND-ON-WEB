@@ -23,6 +23,7 @@ class CatalogueType extends AbstractType
                 'required' => false,
                 'mapped' => false,
                 'label' => 'Image',
+                'data_class' => null,
                 'constraints' => [
                     new File([
                         'maxSize' => '10Mi',

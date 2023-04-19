@@ -13,7 +13,7 @@
         </nav>
     </div><!-- End Page Title -->
 
-    <h1>Catalogue index</h1>
+    
 
     <table class="table">
         <thead>
@@ -30,7 +30,8 @@
             <tr>
                 <td>{{ catalogue.id }}</td>
                 <td>{{ catalogue.nom }}</td>
-                <td>{{ catalogue.image }}</td>
+                 <td>{{ catalogue.image }}</td> 
+               
                 <td>{{ catalogue.idCategorie.nom }}</td>
                 <td>
                  <a href="{{ path('app_back_office_catalogue_show', {'id': catalogue.id}) }}">show</a>
