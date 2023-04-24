@@ -17,20 +17,20 @@
                 <div class="albums-slideshow owl-carousel">
                     {% for m in album.musiques %}
                     <!-- Single Album -->
-                    <div class="single-album">
-                        <img src="{{asset('template/img/bg-img/a7.jpg')}}" alt="">
-                        <div class="album-info">
-                            <a href="{{ path('app_front_office_music_show', {'id': m.id} ) }}">
+                    <a href="{{ path('app_front_office_music_show', {'id': m.id} ) }}">
+                        <div class="single-album">
+                            <img src="{{asset('template/img/bg-img/a7.jpg')}}" alt="">
+                            <div class="album-info">
                                 <h5>{{m.nom}}</h5>
-                            </a>
-                            <p>By {{m.iduser.prenom}}</p>
-                        </div>
-                    </div>
-                    
-                    {% endfor %}
+                                <p>By {{m.iduser.prenom}}</p>
+                    </a>
                 </div>
             </div>
+
+            {% endfor %}
         </div>
+    </div>
+    </div>
     </div>
 </section>
 <!-- ##### Latest Albums Area End ##### -->
