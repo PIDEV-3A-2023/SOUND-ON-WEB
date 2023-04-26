@@ -20,13 +20,9 @@ class Categorie
     private ?string $nom = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $visiteur = null;
+    private ?int $visiteur = 0;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $starCount = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $rate = null;
 
     #[ORM\OneToMany(mappedBy: 'idCategorie', targetEntity: Musique::class, orphanRemoval: true)]
     private Collection $musiques;
@@ -65,29 +61,7 @@ class Categorie
         return $this;
     }
 
-    public function getStarCount(): ?int
-    {
-        return $this->starCount;
-    }
 
-    public function setStarCount(?int $starCount): self
-    {
-        $this->starCount = $starCount;
-
-        return $this;
-    }
-
-    public function getRate(): ?int
-    {
-        return $this->rate;
-    }
-
-    public function setRate(int $rate): self
-    {
-        $this->rate = $rate;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Musique>

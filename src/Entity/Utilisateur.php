@@ -59,6 +59,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Commande::class, orphanRemoval: true)]
     private Collection $commandes;
 
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Rating::class)]
+    private Collection $ratings;
+
     public function __construct()
     {
         $this->albums = new ArrayCollection();
@@ -68,6 +71,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->reservations = new ArrayCollection();
         $this->participations = new ArrayCollection();
         $this->commandes = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -399,6 +403,36 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commande->getIdUser() === $this) {
                 $commande->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getOwner() === $this) {
+                $rating->setOwner(null);
             }
         }
 

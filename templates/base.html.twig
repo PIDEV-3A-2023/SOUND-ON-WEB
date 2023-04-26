@@ -13,10 +13,10 @@
 
     <!-- Favicon -->
     <link rel="icon" href="{{asset('template/img/core-img/favicon.ico')}}">
-
+    <link rel="stylesheet" href="{{asset('template/style.css')}}">
     {% block stylesheets %}
    
-    <link rel="stylesheet" href="{{asset('template/style.css')}}">
+
     {% endblock %}
 
     
@@ -304,7 +304,7 @@
     
 
     {% endblock %}
-    {% block javascripts %}
+
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
     <script src="{{ asset('template/js/jquery/jquery-2.2.4.min.js') }}"></script>
@@ -316,6 +316,7 @@
     <script src="{{ asset('template/js/plugins/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ asset('template/js/active.js') }}"></script>
+    {% block javascripts %}
     {% endblock %}
 
 </body>

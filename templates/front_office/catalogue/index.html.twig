@@ -3,17 +3,62 @@
 {% block title %}Notre catalogues disponible{% endblock %}
 
 {% block content %}
-<!-- ##### Breadcumb Area Start ##### -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/template/img/bg-img/breadcumb.jpg);">
-    <div class="bradcumbContent">
-        <h2>Liste des catalogues</h2>
-    </div>
-</section>
-<br>
- {% for catalogue in catalogues %}
-<a href="" class="btn oneMusic-btn mx-auto" style="width:100px; display:block;" >{{catalogue.nom}}<i class="fa fa-angle-double-right"></i></a>
-<br> 
-<a href="{{ path('app_front_office_categorie')}}" class="btn oneMusic-btn m-2"> retour <i class="fa fa-angle-double-right"></i></a>
-{% endfor %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/template/img/bg-img/breadcumb.jpg);">
+        <div class="bradcumbContent">
+            <h2>Liste des catalogues</h2>
+        </div>
+    </section>
+    <br>
+    {% for catalogue in catalogues %}
 
+        <form action="{{ path('app_catalogue_rating', {'idc': catalogue.catalogue.id}) }}" method="POST">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="rate" >
+                    <input type="radio" id="star5_{{ catalogue.catalogue.id }}" name="rating" value="5" {% if catalogue.rating == 5 %}checked{% endif %}/>
+                    <label for="star5_{{ catalogue.catalogue.id }}" title="text">5 stars</label>
+                    <input type="radio" id="star4_{{ catalogue.catalogue.id }}" name="rating" value="4" {% if catalogue.rating == 4 %}checked{% endif %}/>
+                    <label for="star4_{{ catalogue.catalogue.id }}" title="text">4 stars</label>
+                    <input type="radio" id="star3_{{ catalogue.catalogue.id }}" name="rating" value="3" {% if catalogue.rating == 3 %}checked{% endif %}/>
+                    <label for="star3_{{ catalogue.catalogue.id }}" title="text">3 stars</label>
+                    <input type="radio" id="star2_{{ catalogue.catalogue.id }}" name="rating" value="2" {% if catalogue.rating == 2 %}checked{% endif %}/>
+                    <label for="star2_{{ catalogue.catalogue.id }}" title="text">2 stars</label>
+                    <input type="radio" id="star1_{{ catalogue.catalogue.id }}" name="rating" value="1" {% if catalogue.rating == 1 %}checked{% endif %}/>
+                    <label for="star1_{{ catalogue.catalogue.id }}" title="text">1 star</label>
+                </div>
+            </div>
+            <input type="hidden" name="catalogue_id" value="{{ catalogue.catalogue.id }}" />
+            <button type="submit" style="display: none;"></button>
+        </form>
+
+        <form action="{{ path('app_front_office_catalogue_show', {'id': catalogue.catalogue.id}) }}" method="GET">
+            <button type="submit" class="btn oneMusic-btn mx-auto" style="width:100px; display:block;" > {{catalogue.catalogue.nom}}  ★ {{ catalogue.totalrating }}<i class="fa fa-angle-double-right"></i></button>
+        </form>
+
+        <br>
+    {% endfor %}
+    <a href="{{ path('app_front_office_categorie')}}" class="btn oneMusic-btn m-2"> retour <i class="fa fa-angle-double-right"></i></a>
+
+    <script>
+        // Get all the radio buttons
+        const ratingInputs = document.querySelectorAll('input[type="radio"][name="rating"]');
+
+        // Loop through each radio button
+
+        // Loop through each radio button
+        ratingInputs.forEach((input) => {
+            // Listen for the click event
+            input.addEventListener('click', () => {
+                // Submit the form
+                input.form.submit();
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{asset('template/custom_css/style.css')}}">
 {% endblock %}

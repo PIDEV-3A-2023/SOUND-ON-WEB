@@ -20,8 +20,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Visiteur</th>
-                <th>StarCount</th>
-                <th>Rate</th>
+
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,8 +30,7 @@
                 <td>{{ categorie.id }}</td>
                 <td>{{ categorie.nom }}</td>
                 <td>{{ categorie.visiteur }}</td>
-                <td>{{ categorie.starCount }}</td>
-                <td>{{ categorie.rate }}</td>
+
                 <td>
                     <a href="{{ path('app_back_office_categorie_show', {'id': categorie.id}) }}">show</a>
                     <a href="{{ path('app_back_office_categorie_edit', {'id': categorie.id}) }}">edit</a>

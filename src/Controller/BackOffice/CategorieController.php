@@ -43,6 +43,7 @@ class CategorieController extends AbstractController
     #[Route('/{id}', name: 'app_back_office_categorie_show', methods: ['GET'])]
     public function show(Categorie $categorie): Response
     {
+
         return $this->render('back_office/categorie/show.html.twig', [
             'categorie' => $categorie,
         ]);
