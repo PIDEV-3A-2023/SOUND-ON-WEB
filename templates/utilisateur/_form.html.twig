@@ -10,8 +10,7 @@
         {{ form_widget(form.login, {'attr': {'class': 'form-control'} }) }}
         {{ form_label(form.email) }}
         {{ form_widget(form.email, {'attr': {'class': 'form-control'} }) }}
-        {{ form_label(form.roles) }}
-        {{ form_widget(form.roles, {'attr': {'class': 'form-control'} }) }}
+        
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 </div>

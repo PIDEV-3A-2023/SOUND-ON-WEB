@@ -2,8 +2,9 @@
 
 
 {% block content %}
+
     <div class="block-small">
-        <form method="post">
+        <form method="post"  id = "login-form">
         <head>
     
 
@@ -79,16 +80,107 @@ Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Votre adresse email" required autofocus>
             <label for="inputPassword">Votre mot de passe</label>
             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Votre mot de passe" required>
+            
+            <br>
+            <div>
+            
+           
+            <canvas id="captcha-canvas" width="200" height="70"></canvas>
+            
+            <button id="refresh-btn" type="button" class="btn ">Refresh</button>
+ <br>
+ <br>
+             <input type="text" id="captcha" name="captcha" class="form-control">
+           
+            </div>
 
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"
             >
 
-            <button class="btn oneMusic-btn mt-30" type="submit">
+            <button class="btn oneMusic-btn mt-30" type="submit" id="submit-btn">
                 Se connecter
             </button>
-            <a href="{{ path('register')}}" class="btn oneMusic-btn mt-30" role="button">Créer un compte</a>
+  <br>
+                <a href="{{ path('app_forgot_password_request')}}" class="btn oneMusic-btn mt-30" role="button">reset password</a>
+              <a href="{{ path('register')}}" class="btn oneMusic-btn mt-30" role="button">Créer un compte</a>
+              
             
         </form>
     </div>
+
+ <script>
+    // Define the fonts and characters to use
+const fonts = ["Arial", "Helvetica", "Times New Roman", "Georgia", "Verdana", "Courier"];
+const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+let captcha_v = ""
+// Generate a random captcha code
+function generateCaptcha() {
+  let captcha = "";
+  for (let i = 0; i < 6; i++) {
+    captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return captcha;
+}
+
+// Draw the captcha image on the canvas
+function drawCaptcha() {
+  const canvas = document.getElementById("captcha-canvas");
+  const context = canvas.getContext("2d");
+  
+  // Clear the canvas
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Set the background color and draw random lines
+  context.fillStyle = "#f2f2f2";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.beginPath();
+  for (let i = 0; i < 10; i++) {
+    context.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    context.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    context.strokeStyle = "#ddd";
+    context.stroke();
+  }
+  
+  // Generate a random captcha code and set the font style
+  const captchaCode = generateCaptcha();
+    captcha_v = captchaCode;
+  const font = fonts[Math.floor(Math.random() * fonts.length)];
+  context.font = "bold 30px " + font;
+  
+  // Draw the captcha characters with random colors and positions
+  for (let i = 0; i < captchaCode.length; i++) {
+    context.fillStyle = "rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + ")";
+    context.fillText(captchaCode[i], 20 + i * 25, 40 + Math.random() * 10);
+  }
+  
+  // Set the captcha code as the value of the input field
+  //document.getElementById("captcha").setAttribute("value", captchaCode);
+}
+
+// Draw the captcha image on page load
+window.addEventListener("load", drawCaptcha);
+
+// Refresh the captcha image when the user clicks the "Refresh" button
+document.getElementById("refresh-btn").addEventListener("click", drawCaptcha);
+
+// Check if the user entered the correct captcha code
+document.getElementById("submit-btn").addEventListener("click", function() {
+    
+  const captchaInput = document.getElementById("captcha").value;
+
+
+  if (captchaInput.localeCompare(captcha_v) === 0) {
+   
+    document.getElementById("login-form").submit();
+    
+  } else {
+    alert("Captcha code is incorrect. Please try again.");
+    drawCaptcha();
+    event.preventDefault();
+  }
+});
+
+  </script>
 {% endblock %}

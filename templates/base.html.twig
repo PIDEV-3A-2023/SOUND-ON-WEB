@@ -76,8 +76,19 @@
                                 <div class="login-register-cart-button d-flex align-items-center">
                                     <!-- Login/Register -->
                                     <div class="login-register-btn mr-50">
-                                        <a href="{{ path('app_login') }}" id="loginBtn">Connexion</a>
-                                    </div>
+                                    {% if app.user %}
+                                        <div class="login-register-btn mr-50">
+
+                                             {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                                        </div>
+
+                                        {% else %}
+                                            <div class="login-register-btn mr-50">
+
+                                                 <a href="{{ path('app_login') }}" id="loginBtn">Connexion</a>
+                                            </div>
+
+                                    {% endif %}
 
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
