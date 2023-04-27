@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+
+{% block reclamation %}
+    <h1>Create new Reclamation</h1>
+
+        {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+
+
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.etat) }}
+            {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.image) }}
+            {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+        </div>
+
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+{% endblock %}

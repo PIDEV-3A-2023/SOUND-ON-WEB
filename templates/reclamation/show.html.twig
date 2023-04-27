@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block reclamation %}
+    <h1>Reclamation</h1>
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reclamation.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ reclamation.description }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ reclamation.etat }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ reclamation.type }}</td>
+            </tr>
+            <tr>
+                <th>DateCreation</th>
+                <td>{{ reclamation.dateCreation ? reclamation.dateCreation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateUpdate</th>
+                <td>{{ reclamation.dateUpdate ? reclamation.dateUpdate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td> <img src="{{ asset('Uploads/'~ reclamation.image) }}" width="50" height="50"> </td>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Reponses :</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Message</th>
+            <th>DateCreation</th>
+            <th>DateUpdate</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reponse in reponses %}
+            <tr>
+                <td>{{ reponse.message }}</td>
+                <td>{{ reponse.dateCreation ? reponse.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ reponse.dateUpdate ? reponse.dateUpdate|date('Y-m-d') : '' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_reclamation_index_user',{'id': 1}) }}">back to list</a>
+
+
+{% endblock %}
