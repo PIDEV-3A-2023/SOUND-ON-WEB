@@ -9,9 +9,11 @@ use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
 
 class MusiqueType extends AbstractType
 {
@@ -21,7 +23,12 @@ class MusiqueType extends AbstractType
         $isEdit = $object && $object->getId();
 
         $builder
-            ->add('nom')
+            ->add('nom', TextType::class, [
+                'constraints' => new Length([
+                    'min' => 1,
+                    'max' => 30
+                ])
+            ])
             ->add('chemin', FileType::class, [
                 'label' => 'Fichier audio',
                 'mapped' => false,

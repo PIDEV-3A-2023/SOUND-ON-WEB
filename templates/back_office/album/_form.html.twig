@@ -2,6 +2,7 @@
 {{ form_start(form) }}
     {{ form_label(form.nom) }}
     {{ form_widget(form.nom, {'attr': {'class': 'form-control'} }) }}
+    <span style="color:red;">{{ form_errors(form.nom) }}</span>
     {{ form_label(form.idUser) }}
     {{ form_widget(form.idUser, {'attr': {'class': 'form-control'} }) }}
 <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
