@@ -2,6 +2,7 @@
 
 namespace App\Controller\BackOffice;
 
+use App\Entity\PdfGeneratorService;
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
@@ -12,15 +13,30 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/backOffice/produit')]
 class ProduitController extends AbstractController
 {
     #[Route('/', name: 'app_back_office_produit_index', methods: ['GET'])]
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(ProduitRepository $produitRepository,Request $request,EntityManagerInterface $entityManager): Response
     {
+        
+        $queryBuilder = $entityManager->createQueryBuilder()
+            ->select('e')
+            ->from(Produit::class, 'e');
+
+        
+
+        // Sorting
+        $sort = $request->query->get('sort');
+        if ($sort) {
+            $queryBuilder->orderBy('e.' . $sort, 'ASC');
+        }
+
+        $produits = $queryBuilder->getQuery()->getResult();
         return $this->render('back_office/produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produits,
         ]);
     }
 
@@ -105,5 +121,25 @@ class ProduitController extends AbstractController
         }
 
         return $this->redirectToRoute('app_back_office_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/pdf/evenement', name: 'generator_service')]
+    public function pdfEvenement(): Response
+    { 
+        $produit= $this->getDoctrine()
+        ->getRepository(Produit::class)
+        ->findAll();
+
+   
+
+        $html =$this->renderView('pdf/index.html.twig', ['produit' => $produit]);
+        $pdfGeneratorService=new PdfGeneratorService();
+        $pdf = $pdfGeneratorService->generatePdf($html);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"',
+        ]);
+       
     }
 }

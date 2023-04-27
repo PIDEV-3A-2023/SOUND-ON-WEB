@@ -3,17 +3,27 @@
 namespace App\Form;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Entity\Produit;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ProduitType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prix')
+            ->add('prix' , MoneyType::class)
             ->add('image', FileType::class, [
                 // unmapped means that this field is not associated to any entity property
                 'data_class' => null,
@@ -33,10 +43,28 @@ class ProduitType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid Image',
                     ])
                 ]])
-            ->add('libelle')
-            ->add('type')
-            ->add('quantite')
-            ->add('Description')
+            ->add('libelle',TextType::class ,[
+                'constraints' => new Length([
+                    'min'=>3,
+                    'max'=>20,
+                ])
+            ])
+            ->add('type' , ChoiceType::class, [
+                'choices' => [
+                    'Vetements' => 'vetements',
+                    'Affiche' => 'Affiche',
+                    'Albums' =>'Albums',
+                    'Other' =>'Other',
+                ],
+            ])
+            ->add('quantite', RangeType::class, [
+                'attr' => [
+                    'min' => 1,
+                    'max' => 10
+                ],
+            ])
+            
+            ->add('Description', TextareaType::class)
         ;
     }
 
@@ -48,4 +76,8 @@ class ProduitType extends AbstractType
             'data_class' => Produit::class,
         ]);
     }
+
+
+
+   
 }

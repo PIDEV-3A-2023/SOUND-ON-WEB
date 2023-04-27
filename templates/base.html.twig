@@ -13,10 +13,11 @@
 
     <!-- Favicon -->
     <link rel="icon" href="{{asset('template/img/core-img/favicon.ico')}}">
+    <link rel="stylesheet" href="{{asset('template/style.css')}}">
 
     {% block stylesheets %}
    
-    <link rel="stylesheet" href="{{asset('template/style.css')}}">
+
     {% endblock %}
 
     
@@ -24,7 +25,7 @@
 </head>
 
 <body>
-    {% block body %}
+    
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
@@ -66,7 +67,7 @@
                                     <li><a href="{{ path('app_home') }}">Evenements</a></li>
                                     <li><a href="{{ path('app_back_office_album_index') }}">Albums</a></li>
                                     <li><a href="{{ path('app_home') }}">Catalogues</a></li>
-                                    <li><a href="{{ path('app_home') }}">Boutique</a></li>
+                                    <li><a href="{{ path('app_front_office_produit_index') }}">Boutique</a></li>
                                     <li><a href="{{ path('app_home') }}">Reclamation</a></li>
                                 </ul>
 
@@ -78,9 +79,10 @@
                                     </div>
 
                                     <!-- Cart Button -->
-                                    <div class="cart-btn">
+                                    {# <div class="cart-btn">
                                         <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
-                                    </div>
+                                    </div> #}
+                                    {{render('front/office/panier/cart')}}
                                 </div>
                             </div>
                             <!-- Nav End -->
@@ -94,6 +96,7 @@
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Hero Area Start ##### -->
+    {% block body %}
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
             <!-- Single Hero Slide -->
@@ -282,7 +285,7 @@
     </section>
     <!-- ##### Featured Artist Area End ##### -->
 
-   
+   {% endblock %}
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         <div class="container">
@@ -303,7 +306,7 @@
     <!-- ##### Footer Area Start ##### -->
     
 
-    {% endblock %}
+    
     {% block javascripts %}
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->

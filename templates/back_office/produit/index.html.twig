@@ -14,9 +14,37 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
+    <div class="d-flex justify-content-end mb-3">
+        <form class="input-group" method="get">
+        <input type="search" id="myInput" class="form-control pl-6" placeholder="Search "/>
+					
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+					<script>
+						$(document).ready(function () {
+                        $("#myInput").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#rs tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                         })
+                        });
+					</script>
+        </form>
+
+        <div class="ms-3">
+          <a href="{{ path('app_back_office_produit_index', {'sort': 'prix'}) }}" class="btn btn-outline-primary">Trier par Prix</a>
+        </div>
+
+        <div class="ms-3">
+          <a href="{{ path('app_back_office_produit_index', {'sort': 'quantite'}) }}" class="btn btn-outline-primary">Trier par Quantite</a>
+        </div>
+         <div class="ms-3">
+          <a href="{{ path('app_back_office_produit_index', {'sort': 'libelle'}) }}" class="btn btn-outline-primary">Trier par Libelle</a>
+        </div>
+      </div>
     <h1>Produit </h1>
 
-    <table class="table">
+    <table class="table" id="rs">
         <thead>
             <tr>
                 <th>Id</th>
@@ -34,7 +62,7 @@
             <tr>
                 <td>{{ produit.id }}</td>
                 <td>{{ produit.prix }}</td>
-                <td><img src="{{ asset('uploads/'~produit.image) }}" style=" width:60px; height:50px; " alt=""/></td>
+                <td><img src="{{ asset('uploads/'~produit.image) }}" style=" width:50px; height:40px; " alt=""/></td>
                 <td>{{ produit.libelle }}</td>
                 <td>{{ produit.type }}</td>
                 <td>{{ produit.quantite }}</td>
@@ -42,6 +70,8 @@
                 <td>
                     <a href="{{ path('app_back_office_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_back_office_produit_edit', {'id': produit.id}) }}">edit</a>
+                     <a href="{{ path('app_qr_codes', {'id': produit.id}) }}" class="btn btn-primary px-3 py-1">qr code</a>
+                    
                 </td>
             </tr>
         {% else %}
@@ -53,4 +83,6 @@
     </table>
 
     <a href="{{ path('app_back_office_produit_new') }}">Create new</a>
+    <a href="{{ path('generator_service') }}" class="btn btn-primary px-3 py-1">Export PDF</a>
+   
 {% endblock %}
