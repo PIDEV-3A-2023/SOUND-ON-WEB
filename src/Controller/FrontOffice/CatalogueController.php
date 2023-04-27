@@ -10,12 +10,14 @@ use App\Repository\RatingRepository;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class CatalogueController extends AbstractController
 {
     #[Route('/front/office/catalogue/{id}', name: 'app_front_office_catalogue')]
-    public function index(CatalogueRepository $catalogueRepository , Categorie $categorie , CategorieRepository $categorieRepository , utilisateurRepository $utilisateurRepository,RatingRepository $ratingRepository ): Response
+    public function index(CatalogueRepository $catalogueRepository , Categorie $categorie , CategorieRepository $categorieRepository , utilisateurRepository $utilisateurRepository,RatingRepository $ratingRepository): Response
     {
         $categorie->setVisiteur($categorie->getVisiteur() + 1);
         $categorieRepository->save($categorie, true);
@@ -70,5 +72,18 @@ class CatalogueController extends AbstractController
         return $this->render('front_office/catalogue/view.html.twig', [
             'catalogue' => $catalogue,
         ]);
+    } 
+
+    #[Route('/front/office/catalogue/image/{id}', name: 'app_front_office_catalogue_content')]
+    public function imageContent(Catalogue $catalogue): Response
+    {
+        $file = $catalogue->getImage();
+        $response = new Response();
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_INLINE, basename($catalogue->getImage()));
+        $response->headers->set('Content-Disposition', $disposition);
+        $response->headers->set('Content-Type', 'image/png');
+        $response->setContent(file_get_contents($file));
+
+        return $response;
     }
 }

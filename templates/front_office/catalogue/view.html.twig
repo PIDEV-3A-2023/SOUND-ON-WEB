@@ -1,1 +1,26 @@
-{{catalogue.nom}}
+{% extends 'base.html.twig' %}
+
+{% block title %}Notre catalogues disponible{% endblock %}
+
+{% block content %}
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/template/img/bg-img/breadcumb.jpg);">
+        <div class="bradcumbContent">
+            <h2>catalogue</h2>
+        </div>
+    </section>
+    <br> 
+    <img src="{{ path('app_front_office_catalogue_content', {'id' : catalogue.id})}}" width="300" height="200">
+     <span style="font-weight:bold; font-size:30px ;"> Nom:{{catalogue.nom}} </span>
+    <br>
+    
+    <a href="{{ path('app_front_office_categorie')}}" class="btn oneMusic-btn m-2"> retour <i class="fa fa-angle-double-right"></i></a>
+
+    
+
+{% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{asset('template/custom_css/style.css')}}">
+{% endblock %}
