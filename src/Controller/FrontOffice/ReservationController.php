@@ -13,7 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
-{
+{   #[Route('/lesreservations', name: 'app_reservation_index1', methods: ['GET'])]
+    public function index1(ReservationRepository $reservationRepository): Response
+    {
+        return $this->render('front_office/reservation/indexb.html.twig', [
+            'reservations' => $reservationRepository->findAll(),
+        ]);
+    }
     #[Route('/{id}', name: 'app_reservation_show', methods: ['GET'])]
     public function show(Reservation $reservation): Response
     {
@@ -28,6 +34,7 @@ class ReservationController extends AbstractController
             'reservations' => $reservationRepository->findAll(),
         ]);
     }
+ 
     #[Route('/{id}/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReservationRepository $reservationRepository,Evenement $id): Response
     {
@@ -65,7 +72,7 @@ class ReservationController extends AbstractController
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('reservation/edit.html.twig', [
+        return $this->renderForm('front_office/reservation/edit.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
         ]);

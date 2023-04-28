@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/back/office/evenement')]
 class EvenementController extends AbstractController
 {
-    #[Route('/nosevenements', name: 'app_evenement_indexf', methods: ['GET'])]
+    #[Route('/nosevenements', name: 'app_evenement_indexf', methods: ['GET'])]//fonction pour affichier les events dans la partie front
     public function indexf(EntityManagerInterface $entityManager): Response
     {
         $evenements = $entityManager
@@ -24,7 +24,7 @@ class EvenementController extends AbstractController
             'evenements' => $evenements,
         ]);
     }
-    #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
+    #[Route('/', name: 'app_evenement_index', methods: ['GET'])]//fonction pour affichier les events dans la partie back
     public function index(EntityManagerInterface $entityManager): Response
     {
         $evenements = $entityManager
@@ -37,10 +37,10 @@ class EvenementController extends AbstractController
     }
    
 
-    #[Route('/new', name: 'app_evenement_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_evenement_new', methods: ['GET', 'POST'])]//fonction pour ajouter un event
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $evenement = new Evenement();
+        $evenement = new Evenement();//3malna instance mel Evenement 
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
@@ -72,7 +72,7 @@ class EvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_evenement_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_evenement_edit', methods: ['GET', 'POST'])]//fonction pour modifier un events 
     public function edit(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EvenementType::class, $evenement);
@@ -94,7 +94,7 @@ class EvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_evenement_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_evenement_delete', methods: ['POST'])]//fonction pour supprimer un event
     public function delete(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$evenement->getId(), $request->request->get('_token'))) {
