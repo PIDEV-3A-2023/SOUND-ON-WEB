@@ -8,6 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,6 +18,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Range;
 
 class ProduitType extends AbstractType
 {
@@ -57,11 +59,11 @@ class ProduitType extends AbstractType
                     'Other' =>'Other',
                 ],
             ])
-            ->add('quantite', RangeType::class, [
-                'attr' => [
+            ->add('quantite', NumberType::class, [
+                'constraints' => new Range([
                     'min' => 1,
                     'max' => 10
-                ],
+                ]),
             ])
             
             ->add('Description', TextareaType::class)
