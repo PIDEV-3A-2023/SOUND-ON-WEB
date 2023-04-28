@@ -96,6 +96,7 @@ class ProduitController extends AbstractController
         $detailCommande -> setQuantite(1);
         $detailCommandeRepository->save($detailCommande, true);
         
+
         
     }
     $cart = $session->get('cart',[]);
