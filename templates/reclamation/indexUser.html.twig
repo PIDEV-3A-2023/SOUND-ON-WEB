@@ -3,43 +3,32 @@
 {% block title %}Reclamation index{% endblock %}
 
 {% block reclamation %}
-    <h1>Reclamation index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description</th>
-                <th>Etat</th>
-                <th>Type</th>
-                <th>DateCreation</th>
-                <th>DateUpdate</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reclamation in reclamations %}
-            <tr>
-                <td>{{ reclamation.id }}</td>
-                <td>{{ reclamation.description }}</td>
-                <td>{{ reclamation.etat }}</td>
-                <td>{{ reclamation.type }}</td>
-                <td>{{ reclamation.dateCreation ? reclamation.dateCreation|date('Y-m-d') : '' }}</td>
-                <td>{{ reclamation.dateUpdate ? reclamation.dateUpdate|date('Y-m-d') : '' }}</td>
-                <td><img src="{{ asset('Uploads/'~ reclamation.image) }}" width="50" height="50"></td>
-                <td>
-                    <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<section class="events-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                {% for reclamation in reclamations %}
+                <!-- Single Event Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-event-area mb-30">
+                        <div class="event-thumbnail">
+                            <img src="{{ asset('Uploads/'~ reclamation.image) }}" alt="">
+                        </div>
+                        <div class="event-text">
+                            <h4>{{ reclamation.type }}</h4>
+                            <div class="event-meta-data">
+                                <a href="#" class="event-place">{{ reclamation.description }}</a>
+                                <a href="#" class="event-date">{{ reclamation.dateCreation ? reclamation.dateCreation|date('Y-m-d') : '' }}</a>
+                            </div>
+                            <h3>{{ reclamation.etat }}</h3>
+                            <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="btn see-more-btn">Détails</a>
+                           </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+</section>
 
-    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+    
 {% endblock %}

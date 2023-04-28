@@ -5,13 +5,15 @@ namespace App\Controller;
 use App\Entity\Reclamation;
 use App\Entity\Reponse;
 use App\Form\ReponseType;
+use App\Repository\ReclamationRepository;
 use App\Repository\ReponseRepository;
 use App\Repository\UtilisateurRepository;
-use App\Repository\ReclamationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Services\QrcodeService;
+use App\Services\MailerService;
 
 #[Route('/reponse')]
 class ReponseController extends AbstractController
@@ -25,20 +27,34 @@ class ReponseController extends AbstractController
     }
 
     #[Route('/new/{id}', name: 'app_reponse_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReponseRepository $reponseRepository,Reclamation $reclamation,UtilisateurRepository  $utilisateurRepository,ReclamationRepository $reclamationRepository): Response
+    public function new(QrcodeService $qrcodeService,ReclamationRepository $reclamationRepository,Request $request,MailerService $mailerService, ReponseRepository $reponseRepository,Reclamation $reclamation,UtilisateurRepository  $utilisateurRepository): Response
     {
         $reponse = new Reponse();
         $form = $this->createForm(ReponseType::class, $reponse);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $reclamation->setEtat("Traité");
+            $reclamationRepository->save($reclamation, true);
             $reponse->setIdReclamation($reclamation);
             $reponse->setDateCreation(new \DateTime);
             $reponse->setIdUser($utilisateurRepository->find(1));
             $reponseRepository->save($reponse, true);
+        $content = 'La reponse est :'.$reponse->getMessage();
+        $encoding = 'ISO-8859-1';
+        $utf8_content = mb_convert_encoding($content, 'UTF-8', $encoding);
+        $qrCode = $qrcodeService->qrcode($utf8_content);
+         $mailerService->send(
+            "Reclamation Traité",
+            "hazzastyle25@gmail.com",
+            "hazzastyle25@gmail.com",
+            "reclamation/reponse.html.twig",
+            [
+                "name"=>$reclamation->getDescription(),
+            ],
+            $qrCode
+        );
 
-            $reclamation->setDateUpdate(new \DateTime());
-            $reclamationRepository->save($reclamation, true);
 
             return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -48,6 +64,8 @@ class ReponseController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    
 
     #[Route('/{id}', name: 'app_reponse_show', methods: ['GET'])]
     public function show(Reponse $reponse): Response

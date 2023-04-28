@@ -93,8 +93,15 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="event.html">Events</a></li>
-                                    <li><a href="{{ path('app_reclamation_new') }}">Reclamation</a></li>
+                                    <li><a href="event.html">Events</a>
+                                    </li>
+                                    
+                                    <li><a href="">Reclamation</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{{ path('app_reclamation_new',{'isBad':0}) }}">Passer une rec</a></li>
+                                            <li><a href="{{ path('app_reclamation_index_user', {'id': 1}) }}">Voir recs</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
 
@@ -147,7 +154,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" ><img src="{{asset('template/img/bg-img/bg-2.jpg')}}" alt=""></div>
+                <div class="slide-img bg-img" ><img src="{{asset('template/img/bg-img/bg-3.jpg')}}" alt=""></div>
                 <!-- Slide Content -->
                 <div class="container">
                     <div class="row">
@@ -829,7 +836,7 @@
                 <div class="col-12">
                     <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
                         <p>See what’s new</p>
-                        <h2>Get In Touch</h2>
+                        <h2>veuillez passer votre reclamation</h2>
                     </div>
                 </div>
             </div>

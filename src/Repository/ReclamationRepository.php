@@ -53,6 +53,54 @@ class ReclamationRepository extends ServiceEntityRepository
        ;
     }
 
+    public function findDate($type,$etat)
+    {
+        if($type== " " && $etat != " "){
+            
+            $query = $this->createQueryBuilder('a')
+            ->andWhere('a.etat = :etat')
+            ->andWhere('a.idUser = 1')
+            ->setParameter('etat',$etat)
+            ->getQuery();
+        return $query->getResult();
+        }else if($type == " " && $etat==" "){
+            
+            $query = $this->createQueryBuilder('a')
+            ->andWhere('a.idUser = 1')
+            ->getQuery();
+        return $query->getResult();
+        }
+        else if($etat== " " && $type!= " "){
+            
+            $query = $this->createQueryBuilder('a')
+            ->andWhere('a.type = :type')
+            ->andWhere('a.idUser = 1')
+            ->setParameter('type',$type)
+            ->getQuery();
+        return $query->getResult();
+        }else{
+            
+            $query = $this->createQueryBuilder('a')
+            ->andWhere('a.type = :type')
+            ->andWhere('a.etat = :etat')
+            ->andWhere('a.idUser = 1')
+            ->setParameter('type',$type)
+            ->setParameter('etat',$etat)
+            ->getQuery();
+        return $query->getResult();
+        }
+        
+    }
+
+
+    public function findReclamationByDescription($requestString)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.description LIKE :key')
+            ->setParameter('key' , '%'.$requestString.'%')->getQuery();
+        return $query->getResult();
+    }
+
 //    public function findOneBySomeField($value): ?Reclamation
 //    {
 //        return $this->createQueryBuilder('r')
