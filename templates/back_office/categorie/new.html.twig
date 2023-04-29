@@ -1,0 +1,20 @@
+{% extends 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block content %} 
+<div class="pagetitle">
+        <h1>Categorie</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Categorie</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <h1>Create new Categorie</h1>
+
+    {{ include('back_office/categorie/_form.html.twig') }}
+
+    <a href="{{ path('app_back_office_categorie_index') }}">back to list</a>
+{% endblock %}

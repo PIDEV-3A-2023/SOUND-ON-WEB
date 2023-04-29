@@ -66,7 +66,7 @@
                                 <ul>
                                     <li><a href="{{ path('app_home') }}">Evenements</a></li>
                                     <li><a href="{{ path('app_front_office_album_list') }}">Albums</a></li>
-                                    <li><a href="{{ path('app_home') }}">Catalogues</a></li>
+                                    <li><a href="{{ path('app_front_office_categorie') }}">Catalogues</a></li>
                                     <li><a href="{{ path('app_front_office_produit_index') }}">Boutique</a></li>
                                     <li><a href="{{ path('app_home') }}">Reclamation</a></li>
                                 </ul>
@@ -308,7 +308,7 @@
     
 
     {% endblock %}
-    {% block javascripts %}
+
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
     <script src="{{ asset('template/js/jquery/jquery-2.2.4.min.js') }}"></script>
@@ -320,6 +320,7 @@
     <script src="{{ asset('template/js/plugins/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ asset('template/js/active.js') }}"></script>
+    {% block javascripts %}
     {% endblock %}
 
 </body>
