@@ -1,46 +1,345 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
 
-{% block body %}
-<div
- class="p-3 mb-2 bg-dark text-white">
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+{% block content %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <div class="block-small">
+        <form method="post"  id = "login-form">
+        <head>
+    
+
+    <!-- Title -->
+    <title>SoundOn</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+ <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+    </div>
+    </body>
+<div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+                <a href="index.html" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
+                <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+                        <div class="classy-menu">
+<div class="login-register-cart-button d-flex align-items-center">
+    </div>
+                            </div>
+                            </div>
+                    </nav>
+                </div>
+            </div>
         </div>
-    #}
-    <hr>
-    <button class="btn btn-lg btn-primary" type="submit">
-        Connexion
-    </button>
-    <a href="{{ path('register')}}" class="btn btn-primary btn-lg active" role="button">Créer Compte</a>
-</form>
-</div>
+    </header>
+
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/template/img/bg-img/breadcumb.jpg);">
+        <div class="bradcumbContent">
+            
+            <h2>Connexion</h2>
+        </div>
+    </section>
+    <section class="login-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <h3>Bienvenue</h3>
+                        <!-- Login Form -->
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    
+Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+            {% endif %}
+
+            <h1 class="h3 mb-3 font-weight-normal">Merci de vous connecter a SoundOn</h1>
+            <label for="inputEmail">Votre email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Votre adresse email" required autofocus>
+            <label for="inputPassword">Votre mot de passe</label>
+            <div>
+            <input type="password" name="password" id="inputPassword" required oninput="updateMeter(this.value)" class="form-control" placeholder="Votre mot de passe" required>
+            <div id="password-strength-meter"></div>
+  <div id="password-strength-message"></div>
+            </div>
+            <br>
+            <div>
+            
+           
+            <canvas id="captcha-canvas" width="200" height="70"></canvas>
+            
+            <button id="refresh-btn" type="button" class="btn ">Refresh</button>
+ <br>
+ <br>
+             <input type="text" id="captcha" name="captcha" class="form-control">
+           
+            </div>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+            <button class="btn oneMusic-btn mt-30" type="submit" id="submit-btn">
+                Se connecter
+            </button>
+  <br>
+                <a href="{{ path('app_forgot_password_request')}}" class="btn oneMusic-btn mt-30" role="button">Mot de passe oublié</a>
+              <a href="{{ path('register')}}" class="btn oneMusic-btn mt-30" role="button">Créer un compte</a>
+              
+            
+        </form>
+    </div>
+
+ <script>
+    // Define the fonts and characters to use
+const fonts = ["Arial", "Helvetica", "Times New Roman", "Georgia", "Verdana", "Courier"];
+const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+let captcha_v = ""
+// Generate a random captcha code
+function generateCaptcha() {
+  let captcha = "";
+  for (let i = 0; i < 6; i++) {
+    captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return captcha;
+}
+
+// Draw the captcha image on the canvas
+function drawCaptcha() {
+  const canvas = document.getElementById("captcha-canvas");
+  const context = canvas.getContext("2d");
+  
+  // Clear the canvas
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Set the background color and draw random lines
+  context.fillStyle = "#f2f2f2";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.beginPath();
+  for (let i = 0; i < 10; i++) {
+    context.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    context.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+    context.strokeStyle = "#ddd";
+    context.stroke();
+  }
+  
+  // Generate a random captcha code and set the font style
+  const captchaCode = generateCaptcha();
+    captcha_v = captchaCode;
+  const font = fonts[Math.floor(Math.random() * fonts.length)];
+  context.font = "bold 30px " + font;
+  
+  // Draw the captcha characters with random colors and positions
+  for (let i = 0; i < captchaCode.length; i++) {
+    context.fillStyle = "rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + ")";
+    context.fillText(captchaCode[i], 20 + i * 25, 40 + Math.random() * 10);
+  }
+  
+  // Set the captcha code as the value of the input field
+  //document.getElementById("captcha").setAttribute("value", captchaCode);
+}
+
+// Draw the captcha image on page load
+window.addEventListener("load", drawCaptcha);
+
+// Refresh the captcha image when the user clicks the "Refresh" button
+document.getElementById("refresh-btn").addEventListener("click", drawCaptcha);
+
+// Check if the user entered the correct captcha code
+document.getElementById("submit-btn").addEventListener("click", function() {
+    
+  const captchaInput = document.getElementById("captcha").value;
+
+
+  if (captchaInput.localeCompare(captcha_v) === 0) {
+   
+    document.getElementById("login-form").submit();
+    
+  } else {
+    alert("Captcha code is incorrect. Please try again.");
+    drawCaptcha();
+    event.preventDefault();
+  }
+});
+
+  </script>
+  <style>
+
+
+
+    /* Style the form container */
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Style the form title */
+    .form-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+.error-red + .form-error-message {
+  color: red;
+}
+    /* Style the form fields */
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+    /* Style the form labels */
+    .form-label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* Style the form input fields */
+    .form-input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    /* Style the form submit button */
+    .form-submit {
+        display: block;
+        width: 195%;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        flex-basis: 100%;
+    }
+
+    /* Style the form submit button on hover */
+    .form-submit:hover {
+        background-color: #0069d9;
+    }
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .form-column {
+        flex-basis: 50%;
+        padding-right: 10px;
+    }
+   
+    /* Add margin between adresse_ma and num_tel */
+    .form-column .form-input:last-child {
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
+#password-strength-meter {
+  height: 10px;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: gray;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#password-strength-meter.red {
+  background-color: red;
+}
+
+#password-strength-meter.yellow {
+  background-color: yellow;
+}
+
+#password-strength-meter.green {
+  background-color: green;
+}
+
+ 
+</style>
+<Script>
+const meter = document.getElementById('password-strength-meter');
+
+function updateMeter(value) {
+  const message = document.getElementById('password-strength-message');
+  const meter = document.getElementById('password-strength-meter');
+  const strength = calculatePasswordStrength(value);
+  meter.className = '';
+  if (strength === 0) {
+    meter.classList.add('gray');
+    document.querySelector('.form-submit').removeAttribute('disabled');
+  } else if (strength === 1) {
+    meter.classList.add('red');
+    message.innerText = 'Votre mot de passe est faible!';
+    document.querySelector('.form-submit').setAttribute('disabled', true);
+  } else if (strength === 2) {
+    meter.classList.add('yellow');
+    message.innerText = 'Votre mot de passe doit contient des caracteres speciaux';
+    document.querySelector('.form-submit').removeAttribute('disabled');
+  } else {
+    meter.classList.add('green');
+    message.innerText = '';
+    document.querySelector('.form-submit').removeAttribute('disabled');
+  }
+}
+
+
+function calculatePasswordStrength(password) {
+  let strength = 0;
+  if (password.length >= 8) {
+    strength += 1;
+  }
+  if (password.match(/[a-z]/)) {
+    strength += 1;
+  }
+  if (password.match(/[A-Z]/)) {
+    strength += 1;
+  }
+  if (password.match(/[0-9]/)) {
+    strength += 1;
+  }
+  if (password.match(/[!@#$%^&*()\-_=+{};:,<.>]/)) {
+    strength += 1;
+  }
+  return strength;
+}
+
+</Script>
 {% endblock %}

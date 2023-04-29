@@ -1231,3 +1231,15 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+
+
+.container .login-content .captcha .preview{ 
+color:#555;
+width:100%;
+text-align:center;
+height: 40px;
+line-height: 40px;
+letter-spacing: 8px;
+border: 1px solid #888;
+}

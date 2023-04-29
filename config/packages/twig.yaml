@@ -1,6 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['bootstrap_4_layout.html.twig']
+    globals:
+        hcaptcha_site_key: 'fb0db7a9-48b7-47f4-a158-1b44d94615fe'
 
 when@test:
     twig:

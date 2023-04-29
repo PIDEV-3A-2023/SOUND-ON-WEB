@@ -76,8 +76,19 @@
                                 <div class="login-register-cart-button d-flex align-items-center">
                                     <!-- Login/Register -->
                                     <div class="login-register-btn mr-50">
-                                        <a href="{{ path('app_home') }}" id="loginBtn">Connexion</a>
-                                    </div>
+                                    {% if app.user %}
+                                        <div class="login-register-btn mr-50">
+
+                                             {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                                        </div>
+
+                                        {% else %}
+                                            <div class="login-register-btn mr-50">
+
+                                                 <a href="{{ path('app_login') }}" id="loginBtn">Connexion</a>
+                                            </div>
+
+                                    {% endif %}
 
                                     <!-- Cart Button -->
                                     <div class="cart-btn">
@@ -110,8 +121,7 @@
                                 <h6 data-animation="fadeInUp" data-delay="100ms">SOUNDON</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">When words fail <span>When words fail</span>
                                 </h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#"
-                                    class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                               
                             </div>
                         </div>
                     </div>
@@ -129,8 +139,7 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">SOUNDON</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">Music Speaks <span>Music Speaks</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#"
-                                    class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                                
                             </div>
                         </div>
                     </div>
@@ -140,6 +149,7 @@
     </section>
     <!-- ##### Hero Area End ##### -->
 {% block content %}
+{% endblock %}
 
     <!-- ##### Latest Albums Area Start ##### -->
     <section class="latest-albums-area section-padding-100">
@@ -155,10 +165,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-9">
                     <div class="ablums-text text-center mb-70">
-                        <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius
-                            rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis
-                            nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec
-                            in velit non elit pulvinar pellentesque et non eros.</p>
+                       
                     </div>
                 </div>
             </div>
@@ -266,10 +273,7 @@
                             <p>See what’s new</p>
                             <h2>Buy What’s New</h2>
                         </div>
-                        <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius
-                            rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis
-                            nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec
-                            in velit non elit pulvinar pellentesque et non eros.</p>
+                     
                         <div class="song-play-area">
                             <div class="song-name">
                                 <p>01. Main Hit Song</p>
