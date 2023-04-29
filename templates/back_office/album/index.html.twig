@@ -1,19 +1,16 @@
-{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+{% extends 'back_office/admin_dashboard/dashboard.html.twig' %}
 
-{% block body %}
-<main id="main" class="main">
+{% block content %}
 
     <div class="pagetitle">
         <h1>Musique</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="{{ path('app_back_office_admin_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Albums</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
-    <h1>Album index</h1>
 
     <table class="table">
         <thead>
@@ -43,7 +40,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_back_office_album_new') }}">Create new</a>
+    <a href="{{ path('app_back_office_album_new') }}"><button class="btn btn-primary">Create new</button></a>
 
 </main><!-- End #main -->
 {% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block content %} 
+<div class="pagetitle">
+        <h1>Catalogue</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Catalogue</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <h1>Catalogue</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ catalogue.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ catalogue.nom }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ catalogue.image }}</td>
+            </tr>
+             <tr>
+                <th>Categorie</th>
+                <td>{{ catalogue.idCategorie.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_office_catalogue_index') }}">back to list</a>
+
+    <a href="{{ path('app_back_office_catalogue_edit', {'id': catalogue.id}) }}">edit</a>
+
+    {{ include('back_office/catalogue/_delete_form.html.twig') }}
+{% endblock %}

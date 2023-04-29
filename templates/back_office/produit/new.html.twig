@@ -1,0 +1,20 @@
+{% extends 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block content %}
+<div class="pagetitle">
+        <h1>Produit </h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <h1>Create new Produit</h1>
+
+    {{ include('back_office/produit/_form.html.twig') }}
+
+    <a href="{{ path('app_back_office_produit_index') }}">back to list</a>
+{% endblock %}

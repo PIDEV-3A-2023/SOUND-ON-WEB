@@ -39,6 +39,17 @@ class ProduitRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByID($value): ?Produit
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+           ->setParameter('val', $value)
+            ->getQuery()
+          ->getOneOrNullResult()
+        
+        ;
+    } 
+
 //    /**
 //     * @return Produit[] Returns an array of Produit objects
 //     */
@@ -63,4 +74,25 @@ class ProduitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+// trier par nom d'utilisateur
+public function sortByprix() {
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.prix', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
+
+// trier par nombre de votes
+public function sortByquantite() {
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.quantite', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
+public function sortBylibelle() {
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.libelle', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 }

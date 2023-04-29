@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block stylesheets %}
+   
+     
+     <link rel="stylesheet" href="{{asset('template/css/css1.css')}}">
+
+    {% endblock %}
+
+    
+
+{% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>One Music - Modern Music HTML5 Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="public/template/img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    
+                            </div>
+                            <!-- Nav End -->
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb3.jpg);">
+        <div class="bradcumbContent">
+            <p>See what’s new</p>
+            <h2>SOUND'ON MARKET</h2>
+        </div>
+    </section>
+<div class="cards">
+{% set x =  0 %}
+  {% for produit in produits %}
+
+  <div class="card">
+    <div class="card__image-holder">
+      <img class="card__image" src="{{ asset('uploads/'~produit.image) }}" alt="desert" width="500px" height="600px"  />
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+          <td>{{ produit.libelle }}</td>
+          <a><br><td>{{ produit.type }}</td></a>
+          <a><br><td>Disponibilite:{{ produit.Quantite }}</td></a>
+          <br><td>${{ produit.prix }}</td>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+        <td>{{ produit.description }}</td>
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+           <a href="{{ path('app_front_office_produit_commande', {'id': produit.id}) }}" class="btn">ADD ARTICLE</a> 
+          <br><a href="{{ path('app_front_office_panier_cart_remove', {'id': x}) }}" class="btn">Remove from Cart</a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  {% set x = x+1 %}
+{% endfor %}
+
+</div>
+
+
+
+
+{% endblock %}
+
+

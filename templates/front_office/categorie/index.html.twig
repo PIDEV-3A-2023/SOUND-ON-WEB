@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notre categorie disponible{% endblock %}
+
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/template/img/bg-img/bg-4.jpg);">
+    <div class="bradcumbContent">
+        <h2>Liste des categories</h2>
+    </div>
+</section>
+<br>
+ {% for categorie in categories %}
+<a href="{{ path('app_front_office_catalogue', {'id': categorie.id}) }}" class="btn oneMusic-btn mx-auto" style="width:100px; display:block;" >{{categorie.nom}}<i class="fa fa-angle-double-right"></i></a>
+<br>
+{% endfor %}
+
+{% endblock %}

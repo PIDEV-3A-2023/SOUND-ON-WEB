@@ -14,3 +14,7 @@ framework:
             low: ['email']
         admin_recipients:
             - { email: admin@example.com }
+        texter_transports:
+            twilio: '%env(TWILIO_DSN)%'
+
+            # config/packages/notifier.yaml

@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
 class Album
@@ -14,19 +16,30 @@ class Album
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("albums")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 1,
+        max: 20,
+        minMessage: 'Le longueur du titre doit {{ limit }} au minimum',
+        maxMessage: 'Le longueur du titre doit {{ limit }} au maximum',
+    )]
+    #[Groups("albums")]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups("albums")]
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'albums')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("albums")]
     private ?Utilisateur $idUser = null;
 
     #[ORM\OneToMany(mappedBy: 'idAlbum', targetEntity: Musique::class)]
+    #[Groups("albums")]
     private Collection $musiques;
 
     public function __construct()
