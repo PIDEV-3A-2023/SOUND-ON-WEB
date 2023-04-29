@@ -14,10 +14,10 @@
 
     <!-- Favicon -->
     <link rel="icon" href="{{asset('template/img/core-img/favicon.ico')}}">
+    <link rel="stylesheet" href="{{asset('template/style.css')}}">
 
     {% block stylesheets %}
    
-    <link rel="stylesheet" href="{{asset('template/style.css')}}">
     {% endblock %}
 
     
@@ -35,7 +35,8 @@
             <div></div>
         </div>
     </div>
-
+    {{ include('home/music-player.html.twig') }}
+    
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
@@ -65,7 +66,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="{{ path('app_home') }}">Evenements</a></li>
-                                    <li><a href="{{ path('app_back_office_album_index') }}">Albums</a></li>
+                                    <li><a href="{{ path('app_front_office_album_list') }}">Albums</a></li>
                                     <li><a href="{{ path('app_home') }}">Catalogues</a></li>
                                     <li><a href="{{ path('app_home') }}">Boutique</a></li>
                                     <li><a href="{{ path('app_home') }}">Reclamation</a></li>
@@ -105,7 +106,7 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-
+    {% block content %}
     <!-- ##### Hero Area Start ##### -->
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
@@ -288,14 +289,14 @@
         </div>
     </section>
     <!-- ##### Featured Artist Area End ##### -->
-
+    {% endblock %}
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
-                    <a href="#"><img src="{{asset('template/img/core-img/logo2.png')}}" alt=""></a>
-                    <p class="copywrite-text"><a
+                    <a href="{{ path('app_home') }}"><img src="{{asset('template/img/core-img/logo2.png')}}" alt=""></a>
+                    <p class="copywrite-text mb-5"><a
                             href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
                             <script>document.write(new Date().getFullYear());</script> All rights reserved |

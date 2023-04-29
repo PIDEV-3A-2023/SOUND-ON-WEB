@@ -29,8 +29,8 @@ class AlbumController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $album->setDateCreation(new \DateTime());
             $albumRepository->save($album, true);
-
             return $this->redirectToRoute('app_back_office_album_index', [], Response::HTTP_SEE_OTHER);
         }
 

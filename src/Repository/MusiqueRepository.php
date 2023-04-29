@@ -39,6 +39,17 @@ class MusiqueRepository extends ServiceEntityRepository
         }
     }
 
+   public function countByCategory($category): array
+   {
+       return $this->createQueryBuilder('m')
+           ->select('count(m.id)')
+           ->andWhere('m.idCategorie = :val')
+           ->setParameter('val', $category)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Musique[] Returns an array of Musique objects
 //     */
