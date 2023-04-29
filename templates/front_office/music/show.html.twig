@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Music{% endblock %}
+
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/template/img/bg-img/breadcumb.jpg);">
+    <div class="bradcumbContent">
+        <h2>{{song.nom}}</h2>
+    </div>
+</section>
+<!-- ##### Latest Albums Area Start ##### -->
+<section class="section-padding-100">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-12 col-md-5 col-lg-4">
+                <div class="featured-artist-thumb">
+                    <img src="{{asset('/template/img/bg-img/fa.jpg')}}" alt="">
+                </div>
+            </div>
+            <div class="col-12 col-md-7 col-lg-8">
+                <div class="">
+                    <!-- Section Heading -->
+                    <div class="section-heading text-left mb-30">
+                        <h2>Crée par : {{song.idUser.prenom}} {{song.idUser.nom}}</h2>
+                        <p>Genre : {{song.idCategorie.nom}}</p>
+                        <p>Longueur : {{song.longueur}}</p>
+                        <p>Ajouté le : {{song.dateCreation|date("d/m/Y")}}</p>
+                    </div>
+                    <a href="{{ path('app_front_office_music_play', {'id': song.id}) }}">
+                        <img src="{{asset('template/img/core-img/playButton.png')}}" alt="playButton.png" height="50px"
+                            width="50px">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Latest Albums Area End ##### -->
+{% endblock %}

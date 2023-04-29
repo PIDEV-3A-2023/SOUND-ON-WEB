@@ -17,7 +17,6 @@
 
     {% block stylesheets %}
    
-
     {% endblock %}
 
     
@@ -25,7 +24,7 @@
 </head>
 
 <body>
-    
+    {% block body %}
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
@@ -35,7 +34,8 @@
             <div></div>
         </div>
     </div>
-
+    {{ include('home/music-player.html.twig') }}
+    
     <!-- ##### Header Area Start ##### -->
     <header class="header-area">
         <!-- Navbar Area -->
@@ -65,7 +65,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="{{ path('app_home') }}">Evenements</a></li>
-                                    <li><a href="{{ path('app_back_office_album_index') }}">Albums</a></li>
+                                    <li><a href="{{ path('app_front_office_album_list') }}">Albums</a></li>
                                     <li><a href="{{ path('app_home') }}">Catalogues</a></li>
                                     <li><a href="{{ path('app_front_office_produit_index') }}">Boutique</a></li>
                                     <li><a href="{{ path('app_home') }}">Reclamation</a></li>
@@ -75,8 +75,19 @@
                                 <div class="login-register-cart-button d-flex align-items-center">
                                     <!-- Login/Register -->
                                     <div class="login-register-btn mr-50">
-                                        <a href="{{ path('app_home') }}" id="loginBtn">Connexion</a>
-                                    </div>
+                                    {% if app.user %}
+                                        <div class="login-register-btn mr-50">
+
+                                             {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                                        </div>
+
+                                        {% else %}
+                                            <div class="login-register-btn mr-50">
+
+                                                 <a href="{{ path('app_login') }}" id="loginBtn">Connexion</a>
+                                            </div>
+
+                                    {% endif %}
 
                                     <!-- Cart Button -->
                                     {# <div class="cart-btn">
@@ -94,9 +105,8 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-
+    {% block content %}
     <!-- ##### Hero Area Start ##### -->
-    {% block body %}
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
             <!-- Single Hero Slide -->
@@ -111,8 +121,7 @@
                                 <h6 data-animation="fadeInUp" data-delay="100ms">SOUNDON</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">When words fail <span>When words fail</span>
                                 </h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#"
-                                    class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                               
                             </div>
                         </div>
                     </div>
@@ -130,8 +139,7 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">SOUNDON</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">Music Speaks <span>Music Speaks</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#"
-                                    class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                                
                             </div>
                         </div>
                     </div>
@@ -155,10 +163,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-9">
                     <div class="ablums-text text-center mb-70">
-                        <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius
-                            rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis
-                            nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec
-                            in velit non elit pulvinar pellentesque et non eros.</p>
+                       
                     </div>
                 </div>
             </div>
@@ -266,10 +271,7 @@
                             <p>See what’s new</p>
                             <h2>Buy What’s New</h2>
                         </div>
-                        <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius
-                            rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis
-                            nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec
-                            in velit non elit pulvinar pellentesque et non eros.</p>
+                     
                         <div class="song-play-area">
                             <div class="song-name">
                                 <p>01. Main Hit Song</p>
@@ -284,15 +286,14 @@
         </div>
     </section>
     <!-- ##### Featured Artist Area End ##### -->
-
-   {% endblock %}
+    {% endblock %}
     <!-- ##### Footer Area Start ##### -->
     <footer class="footer-area">
         <div class="container">
             <div class="row d-flex flex-wrap align-items-center">
                 <div class="col-12 col-md-6">
-                    <a href="#"><img src="{{asset('template/img/core-img/logo2.png')}}" alt=""></a>
-                    <p class="copywrite-text"><a
+                    <a href="{{ path('app_home') }}"><img src="{{asset('template/img/core-img/logo2.png')}}" alt=""></a>
+                    <p class="copywrite-text mb-5"><a
                             href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;
                             <script>document.write(new Date().getFullYear());</script> All rights reserved |
@@ -306,7 +307,7 @@
     <!-- ##### Footer Area Start ##### -->
     
 
-    
+    {% endblock %}
     {% block javascripts %}
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
