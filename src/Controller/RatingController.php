@@ -25,8 +25,9 @@ class RatingController extends AbstractController
     #[Route('/catalogue/{idc}/rating', name: 'app_catalogue_rating', methods: ['POST'])]
     public function rateCatalogue(Request $request, $idc, RatingRepository $ratingRepository, UtilisateurRepository $utilisateurRepository,CatalogueRepository  $catalogueRepository): Response
     {
+        
         // Get the logged-in user
-        $user = $utilisateurRepository -> find(2);
+        $user = $utilisateurRepository -> find(5);
 
         // Get the catalogue by id
         $catalogue = $catalogueRepository -> find($idc);
@@ -44,7 +45,7 @@ class RatingController extends AbstractController
             'owner' => $user,
             'catalogue' => $catalogue
         ]);
-
+        
         if ($existingRating) {
             // Update the existing rating
             $existingRating->setRating($ratingValue);
@@ -56,6 +57,7 @@ class RatingController extends AbstractController
             $rating->setOwner($user);
             $rating->setCatalogue($catalogue);
             $ratingRepository->save($rating,true);
+
         }
 
         // Redirect back to the catalogue page

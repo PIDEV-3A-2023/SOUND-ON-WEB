@@ -16,13 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CatalogueController extends AbstractController
 {
-    #[Route('/front/office/catalogue/{id}', name: 'app_front_office_catalogue')]
+    #[Route('/front/office/catalogue/all/{id}', name: 'app_front_office_catalogue')]
     public function index(CatalogueRepository $catalogueRepository , Categorie $categorie , CategorieRepository $categorieRepository , utilisateurRepository $utilisateurRepository,RatingRepository $ratingRepository): Response
     {
         $categorie->setVisiteur($categorie->getVisiteur() + 1);
         $categorieRepository->save($categorie, true);
         // Get the logged-in user
-        $user = $utilisateurRepository -> find(1);
+        $user = $utilisateurRepository -> find(5);
 
         $catalogues = $catalogueRepository->findBy(['idCategorie' => $categorie->getId()]);
         $catalogueRatings = [];
