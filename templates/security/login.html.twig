@@ -79,8 +79,10 @@ Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_
             <label for="inputEmail">Votre email</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Votre adresse email" required autofocus>
             <label for="inputPassword">Votre mot de passe</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Votre mot de passe" required>
-            
+            <input type="password" name="password" id="inputPassword" required oninput="updateMeter(this.value)" class="form-control" placeholder="Votre mot de passe" required>
+             <div id="password-strength-meter"></div>
+  <div id="password-strength-message"></div>
+            </div>
             <br>
             <div>
             
@@ -183,4 +185,160 @@ document.getElementById("submit-btn").addEventListener("click", function() {
 });
 
   </script>
+  <style>
+
+
+
+    /* Style the form container */
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Style the form title */
+    .form-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+.error-red + .form-error-message {
+  color: red;
+}
+    /* Style the form fields */
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+    /* Style the form labels */
+    .form-label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* Style the form input fields */
+    .form-input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    /* Style the form submit button */
+    .form-submit {
+        display: block;
+        width: 195%;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        flex-basis: 100%;
+    }
+
+    /* Style the form submit button on hover */
+    .form-submit:hover {
+        background-color: #0069d9;
+    }
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .form-column {
+        flex-basis: 50%;
+        padding-right: 10px;
+    }
+   
+    /* Add margin between adresse_ma and num_tel */
+    .form-column .form-input:last-child {
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
+#password-strength-meter {
+  height: 10px;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: gray;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#password-strength-meter.red {
+  background-color: red;
+}
+
+#password-strength-meter.yellow {
+  background-color: yellow;
+}
+
+#password-strength-meter.green {
+  background-color: green;
+}
+
+ 
+</style>
+<Script>
+const meter = document.getElementById('password-strength-meter');
+
+function updateMeter(value) {
+  const message = document.getElementById('password-strength-message');
+  const meter = document.getElementById('password-strength-meter');
+  const strength = calculatePasswordStrength(value);
+  meter.className = '';
+  if (strength === 0) {
+    meter.classList.add('gray');
+    document.querySelector('.form-submit').removeAttribute('disabled');
+  } else if (strength === 1) {
+    meter.classList.add('red');
+    message.innerText = 'Votre mot de passe est faible!';
+    document.querySelector('.form-submit').setAttribute('disabled', true);
+  } else if (strength === 2) {
+    meter.classList.add('yellow');
+    message.innerText = 'Votre mot de passe doit contient des caracteres speciaux';
+    document.querySelector('.form-submit').removeAttribute('disabled');
+  } else {
+    meter.classList.add('green');
+    message.innerText = '';
+    document.querySelector('.form-submit').removeAttribute('disabled');
+  }
+}
+
+
+function calculatePasswordStrength(password) {
+  let strength = 0;
+  if (password.length >= 8) {
+    strength += 1;
+  }
+  if (password.match(/[a-z]/)) {
+    strength += 1;
+  }
+  if (password.match(/[A-Z]/)) {
+    strength += 1;
+  }
+  if (password.match(/[0-9]/)) {
+    strength += 1;
+  }
+  if (password.match(/[!@#$%^&*()\-_=+{};:,<.>]/)) {
+    strength += 1;
+  }
+  return strength;
+}
+
+</Script>
 {% endblock %}
