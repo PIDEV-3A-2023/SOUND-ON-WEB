@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,9 +67,8 @@
                                     <li><a href="{{ path('app_home') }}">Evenements</a></li>
                                     <li><a href="{{ path('app_front_office_album_list') }}">Albums</a></li>
                                     <li><a href="{{ path('app_home') }}">Catalogues</a></li>
-                                    <li><a href="{{ path('app_home') }}">Boutique</a></li>
+                                    <li><a href="{{ path('app_front_office_produit_index') }}">Boutique</a></li>
                                     <li><a href="{{ path('app_home') }}">Reclamation</a></li>
-
                                 </ul>
 
                                 <!-- Login/Register & Cart Button -->
@@ -92,9 +90,10 @@
                                     {% endif %}
 
                                     <!-- Cart Button -->
-                                    <div class="cart-btn">
+                                    {# <div class="cart-btn">
                                         <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
-                                    </div>
+                                    </div> #}
+                                    {{render('front/office/panier/cart')}}
                                 </div>
                             </div>
                             <!-- Nav End -->
@@ -149,8 +148,6 @@
         </div>
     </section>
     <!-- ##### Hero Area End ##### -->
-{% block content %}
-{% endblock %}
 
     <!-- ##### Latest Albums Area Start ##### -->
     <section class="latest-albums-area section-padding-100">
@@ -324,7 +321,7 @@
     <!-- Active js -->
     <script src="{{ asset('template/js/active.js') }}"></script>
     {% endblock %}
-    
+
 </body>
 
 </html>
