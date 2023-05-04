@@ -1,0 +1,32 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <img src="{{ asset('uploads/evenements/logo.jpg') }}" style="width: 140px; height: 100px;" alt="Description de votre image">
+    <center><h1 style="text-align: right; color:blue;">SOUND ON</h1></center>
+</div>
+ <br>
+ <br>
+ <table  border="1">
+        <thead >
+            <tr>
+                <th style="color:#009CFF;">Id Evenement</th>
+                <th style="color:#009CFF;">Image</th>
+                <th style="color:#009CFF;">Titre</th>
+                <th style="color:#009CFF;">Prix</th>
+                <th style="color:#009CFF;">Adresse</th>
+                <th style="color:#009CFF;">Date</th>
+                
+         </tr>  
+        </thead>
+            <tbody>
+                        {% for event in evenement %}
+            <tr>
+                <td >{{ event.id }}</td>
+                <td><img src="{{ asset('uploads/evenements/' ~event.photo)}}" style=" width:89px; height:50px; " alt=""/></td>
+                <td>{{ event.titre }}</td>
+                <td>{{ event.prix}}</td>
+                <td>{{ event.adresse }}</td>
+                <td>{{ event.dateEvenement ? event.dateEvenement|date('Y-m-d') : '' }}</td>
+                          
+             </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>

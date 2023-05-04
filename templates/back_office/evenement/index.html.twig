@@ -1,0 +1,96 @@
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body  %}
+{% for message in app.flashes('notification') %}
+        <div class="alert alert-info alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+    {% endfor %}
+
+
+<div class="row">
+    <div class="col-md-12">
+
+      <div class="d-flex justify-content-end mb-3">
+        <form class="input-group" method="get">
+        <input type="search" id="myInput" class="form-control pl-6" placeholder="Search "/>
+					<!-- code recherche avec ajax !-->
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+					<script>
+						$(document).ready(function () {
+                        $("#myInput").on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $("#rs tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                         })
+                        });
+					</script>
+        </form>
+
+        <div class="ms-3">
+          <a href="{{ path('app_evenement_index', {'sort': 'titre'}) }}" class="btn btn-outline-primary">Trier par Titre</a>
+        </div>
+
+        <div class="ms-3">
+          <a href="{{ path('app_evenement_index', {'sort': 'dateEvenement'}) }}" class="btn btn-outline-primary">Trier par Date</a>
+        </div>
+         <div class="ms-3">
+          <a href="{{ path('app_evenement_index', {'sort': 'adresse'}) }}" class="btn btn-outline-primary">Trier par Adresse</a>
+        </div>
+      </div>
+    <h4>Evenement index</h4>
+
+    <table   class="table" style="margin-left:400px; margin-right:200px; min-width:10px; max-width:15px;" id="rs">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Datevenement</th>
+                <th>Description</th>
+                <th>Photo</th>
+                <th>Adresse</th>
+                <th>Prix</th>
+                <th style="padding-left:60px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.id }}</td>
+                <td>{{ evenement.titre }}</td>
+                <td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('Y-m-d') : ''}}</td>
+                <td>{{ evenement.description }}</td>
+                <td><img src="{{ asset('uploads/evenements/' ~evenement.photo) }}" style=" width:50px; height:50px; " alt="bonjour"/></td>
+                <td>{{ evenement.adresse }}</td>
+                <td>{{ evenement.prix }}</td>
+                <td>
+                <table>
+                <tbody>
+                <td>
+                   <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"  class="btn btn-primary px-3 py-1">Modifier</a>
+                   </td>
+                   <td>
+                    <a >{{ include('back_office/evenement/_delete_form.html.twig') }}</a>
+                 </td>
+                 <td><a href="{{ path('app_qr_codes', {'id': evenement.id}) }}" class="btn btn-primary px-3 py-1">qr code</a></td>
+                 </tbody>
+                 </table>
+                 </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_evenement_new') }}" class="btn btn-primary px-3 py-1" style="margin-left:400px;">Nouvel Evenement</a>
+    <a href="{{ path('generator_service') }}" class="btn btn-primary px-3 py-1">Export PDF</a>
+    
+{% endblock %}

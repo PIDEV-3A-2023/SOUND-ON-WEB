@@ -1,0 +1,37 @@
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+
+
+{% block body %}
+    <h1  style="margin-left:350px; margin-top:50px;">Les Reservations</h1>
+
+    <table class="table" style="margin-left:350px; margin-top:50px;">
+        <thead>
+            <tr>
+                <th hidden>ID</th>
+                <th>Evenement</th>
+                <th>Client</th>
+                <th>Date Reservation</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td hidden>{{ reservation.id }}</td>
+                <td>{{ reservation.idEvenement }}</td>
+                <td>{{ reservation.idUser}}</td>
+                <td>{{ reservation.date ? reservation.date|date('Y-m-d') : ''  }}</td>
+                
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

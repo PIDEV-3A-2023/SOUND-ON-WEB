@@ -1,0 +1,49 @@
+{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block body %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Musique</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <h1>Album index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>DateCreation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for album in albums %}
+            <tr>
+                <td>{{ album.id }}</td>
+                <td>{{ album.nom }}</td>
+                <td>{{ album.dateCreation ? album.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_back_office_album_show', {'id': album.id}) }}">show</a>
+                    <a href="{{ path('app_back_office_album_edit', {'id': album.id}) }}">edit</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_back_office_album_new') }}">Create new</a>
+
+</main><!-- End #main -->
+{% endblock %}
