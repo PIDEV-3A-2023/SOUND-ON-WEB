@@ -79,9 +79,8 @@ Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_
             <label for="inputEmail">Votre email</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Votre adresse email" required autofocus>
             <label for="inputPassword">Votre mot de passe</label>
-            <div>
             <input type="password" name="password" id="inputPassword" required oninput="updateMeter(this.value)" class="form-control" placeholder="Votre mot de passe" required>
-            <div id="password-strength-meter"></div>
+             <div id="password-strength-meter"></div>
   <div id="password-strength-message"></div>
             </div>
             <br>
