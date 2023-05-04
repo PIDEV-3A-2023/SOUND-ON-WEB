@@ -11,55 +11,14 @@
 
     
 
-{% block body %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Title -->
-    <title>One Music - Modern Music HTML5 Template</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="public/template/img/core-img/favicon.ico">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-    <!-- Preloader -->
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <h2>Panier</h2>
     </div>
-
-    
-                            </div>
-                            <!-- Nav End -->
-
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ##### Header Area End ##### -->
-
-    <!-- ##### Breadcumb Area Start ##### -->
-    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb3.jpg);">
-        <div class="bradcumbContent">
-            <p>See what’s new</p>
-            <h2>SOUND'ON MARKET</h2>
-        </div>
-    </section>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
 <div class="cards">
 {% set x =  0 %}
   {% for produit in produits %}
