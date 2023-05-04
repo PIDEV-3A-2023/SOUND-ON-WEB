@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Reservation{% endblock %}
+
+{% block content %}
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <h2>Reservation</h2>
+    </div>
+</section>
+    <h1>Edit Reservation</h1>
+
+    {{ include('front_office/reservation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reservation_index') }}">back to list</a>
+
+    {{ include('front_office/reservation/_delete_form.html.twig') }}
+{% endblock %}

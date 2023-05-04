@@ -15,12 +15,15 @@ class Reclamation
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $etat = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $type = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -30,6 +33,7 @@ class Reclamation
     private ?\DateTimeInterface $dateUpdate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'reclamations')]

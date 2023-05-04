@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <h2>Reclamation</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+{% if is_bad %}
+<script> alert("BAD WORDS !!! ") </script>
+{% endif %}
+    <!-- ##### Contact Area Start ##### -->
+    <section class="contact-area section-padding-0-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <p>Vous avez un problème?</p>
+                        <h2>Veuillez passer votre reclamation</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area">
+                       {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.description) }}
+                                        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.description) }}
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        {{ form_label(form.type) }}
+                                        {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                         {{ form_label(form.image) }}
+                                         {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <button class="btn oneMusic-btn mt-30" type="submit">Ajouter <i class="fa fa-angle-double-right"></i></button>
+                                </div>
+                            </div>
+                        {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Contact Area End ##### -->
+
+
+         
+
+
+
+    
+
+
+{% endblock %}

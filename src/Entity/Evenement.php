@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EvenementRepository::class)]
 class Evenement
@@ -20,15 +21,21 @@ class Evenement
     private ?\DateTimeInterface $dateEvenement = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:" *Champ Obligatoire")]
+    #[Assert\Length(min:10,minMessage:" *description ne contient pas le minimum des caractères.")]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:" *Champ Obligatoire")]
+    #[Assert\Length(min:5,minMessage:" *adresse ne contient pas le minimum des caractères.")]
     private ?string $adresse = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
+    #[Assert\NotBlank(message:" *Champ Obligatoire")]
+    #[Assert\Positive]
     private ?string $prix = null;
 
     #[ORM\OneToMany(mappedBy: 'idEvenement', targetEntity: Reservation::class, orphanRemoval: true)]
@@ -166,5 +173,9 @@ class Evenement
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->id;
     }
 }

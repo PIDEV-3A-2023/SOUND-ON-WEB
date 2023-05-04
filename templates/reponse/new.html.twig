@@ -1,0 +1,17 @@
+{% extends 'admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}New Reponse{% endblock %}
+
+{% block content %}
+    <h1>Create new Reponse</h1>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.message) }}
+        {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <button type="submit" class="btn oneMusic-btn">Répondre <i class="fa fa-angle-double-right"></i></button>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,46 @@
+
+<table class="table">
+        <thead>
+            <tr>
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+                <th>Id</th>
+                <th>Description</th>
+                <th>{{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}</th>
+                <th>{{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}</th>
+                <th>Date Creation</th>
+                <th>Date Update</th>
+                <th>Image</th>
+                <th><button class="btn oneMusic-btn mt-30" type="submit">Filtrer <i class="fa fa-angle-double-right"></i></button></th>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </tr>
+        </thead>   
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.id }}</td>
+                <td>{{ reclamation.description }}</td>
+                {% if  reclamation.etat == "Traité" %}
+                <td class="btn btn-success">{{ reclamation.etat }}</td>
+                {% elseif reclamation.etat == "En Cours" %}
+                    <td class="btn btn-danger">{{ reclamation.etat }}</td>
+                    {% else %}
+                        <td class="btn btn-info">{{ reclamation.etat }}</td>
+                        {% endif %}
+                <td>{{ reclamation.type }}</td>
+                <td>{{ reclamation.dateCreation ? reclamation.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ reclamation.dateUpdate ? reclamation.dateUpdate|date('Y-m-d') : '' }}</td>
+                <td><img src="{{ asset('Uploads/'~ reclamation.image) }}" width="50" height="50"></td>
+                <td>
+                    <a href="{{ path('app_reponse_new', {'id': reclamation.id}) }}">Repondre</a>
+                    {% if reclamation.etat == "Traité" %}
+                        <a href="{{ path('app_reponse_edit_etat', {'id': reclamation.id}) }}">Cloturer</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+       </tbody>
+    </table>

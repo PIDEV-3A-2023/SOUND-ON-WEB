@@ -39,20 +39,21 @@ class ReponseRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Reponse[] Returns an array of Reponse objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Reponse[] Returns an array of Reponse objects
+     */
+    public function findByReclamtionByUser($value,$v): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.idReclamation = :val ')
+            ->andWhere('r.idUser = :val1 ')
+            ->setParameter('val', $value)
+            ->setParameter('val1', $v)
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Reponse
 //    {
