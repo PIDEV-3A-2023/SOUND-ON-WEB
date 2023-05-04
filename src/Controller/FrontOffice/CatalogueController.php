@@ -81,7 +81,7 @@ class CatalogueController extends AbstractController
         $response = new Response();
         $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_INLINE, basename($catalogue->getImage()));
         $response->headers->set('Content-Disposition', $disposition);
-        $response->headers->set('Content-Type', 'image/png');
+        $response->headers->set('Content-Type', 'image/jpg');
         $response->setContent(file_get_contents($file));
 
         return $response;

@@ -2,25 +2,25 @@
 
 {% block title %}Evenement index{% endblock %}
 
-{% block body %}
-
+{% block content %}
+<!-- ##### Breadcumb Area Start ##### -->
+ <section class="breadcumb-area bg-img bg-overlay" style="background-image: url(/template/img/bg-img/blog2.jpg);">
+        <div class="bradcumbContent">
+        <h2>Evenements</h2>
+    </div>
+</section>
+<br>
 
 {#affichage #}
-<div class="service">
-        <div class="container">
-            <div class="section-header text-center">
-                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Evenements</h4>
-            </div>
-            <div class="row">
            {% for evenement in evenements %}
-        <div class="col-lg-4 col-md-6 mb-4">
-        <div class="service-item">
+        
+        <div class="service-item mx-4">
 {#affichage #}
 
 
 
           <img src="{{ asset('uploads/evenements/' ~evenement.photo)}}" style=" width:360px; height:250px; " alt="">
-          <center><h6>{{ evenement.description }}</h6></center>
+          <h6>{{ evenement.description }}</h6>
           <p><strong style="color:#696969">Date :</strong> {{ evenement.dateEvenement ? evenement.dateEvenement|date('Y-m-d') : ''}}</p>
           <p><strong style="color:#696969">Prix:</strong> {{ evenement.prix}}</p>
           <p><strong style="color:#696969" >Localisation:</strong> {{ evenement.adresse }}</p>
@@ -31,8 +31,7 @@
 
 
 {#affichage #}
-        </div>
-      </div>
+      
       
 {#affichage #}
 
