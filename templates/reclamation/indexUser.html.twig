@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block content %}
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <h2>Reclamation</h2>
+    </div>
+</section>
+
+<section class="events-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                {% for reclamation in reclamations %}
+                <!-- Single Event Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-event-area mb-30">
+                        <div class="event-thumbnail">
+                            <img src="{{ asset('Uploads/'~ reclamation.image) }}" alt="">
+                        </div>
+                        <div class="event-text">
+                            <h4>{{ reclamation.type }}</h4>
+                            <div class="event-meta-data">
+                                <a href="#" class="event-place">{{ reclamation.description }}</a>
+                                <a href="#" class="event-date">{{ reclamation.dateCreation ? reclamation.dateCreation|date('Y-m-d') : '' }}</a>
+                            </div>
+                            <h3>{{ reclamation.etat }}</h3>
+                            <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="btn see-more-btn">Détails</a>
+                           </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+</section>
+
+    
+{% endblock %}

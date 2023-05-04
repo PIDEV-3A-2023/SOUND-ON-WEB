@@ -1,0 +1,58 @@
+{% extends 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block content %}
+<div class="pagetitle">
+    <h1>Evenements</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_back_office_admin_dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Evenements</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+    <table class="table" >
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Datevenement</th>
+                <th>Description</th>
+                <th>Photo</th>
+                <th>Adresse</th>
+                <th>Prix</th>
+                <th style="padding-left:60px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.id }}</td>
+                <td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('Y-m-d') : ''}}</td>
+                <td>{{ evenement.description }}</td>
+                <td><img src="{{ asset('uploads/evenements/' ~evenement.photo) }}" style=" width:50px; height:50px; " alt="bonjour"/></td>
+                <td>{{ evenement.adresse }}</td>
+                <td>{{ evenement.prix }}</td>
+                <td>
+                <table>
+                <tbody>
+                <td>
+                   <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"  class="btn btn-primary px-3 py-1">Modifier</a>
+                   </td>
+                   <td>
+                    <a >{{ include('back_office/evenement/_delete_form.html.twig') }}</a>
+                 </td>
+                 </tbody>
+                 </table>
+                 </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_evenement_new') }}" class="btn btn-primary px-3 py-1" style="margin-left:600px;">Nouvel Evenement</a>
+{% endblock %}

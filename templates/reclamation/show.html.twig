@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block content %}
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(template/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <h2>Reclamation</h2>
+    </div>
+</section>
+    <br>
+    <!-- ##### Newsletter & Testimonials Area Start ##### -->
+    <section class="newsletter-testimonials-area">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Newsletter Area -->
+                <div class="col-12 col-lg-6">
+                    <div class="newsletter-area mb-100">
+                        {% for reponse in reponses %}
+                        <div class="section-heading text-left mb-50">
+                            <p>Les réponses</p>
+                            <h2>{{ reponse.message }}</h2>
+                        </div>
+                        {% endfor %}
+                    {% if reclamation.etat is same as('En Cours') or reclamation.etat is same as('Traité') %}
+                        <div class="newsletter-form">
+                             {{ form_start(form) }}
+                                {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                                <br>
+                                <button type="submit" class="btn oneMusic-btn">Répondre <i class="fa fa-angle-double-right"></i></button>
+                            {{ form_end(form) }}
+                        </div>
+                        {% endif %}
+                    
+                    </div>
+                </div>
+                
+                <!-- Testimonials Area -->
+                <div class="col-12 col-lg-6">
+                    <div class="testimonials-area mb-100 bg-img bg-overlay" style="background-image: url={{ asset('Uploads/'~ reclamation.image) }};">
+                        <img src="{{ asset('Uploads/'~ reclamation.image) }}">
+                        <div class="section-heading white text-left mb-50">
+                            <p>See what’s new</p>
+                            <h2>Etat : {{ reclamation.etat }}</h2>
+                        </div>
+                        <!-- Testimonial Slide -->
+                        <div class="testimonials-slide owl-carousel">
+                            <!-- Single Slide -->
+                            <div class="single-slide">
+                                <p>Description : {{ reclamation.description }}</p>
+                                <div class="testimonial-info d-flex align-items-center">
+                                    <div class="testimonial-thumb">
+                                        <p>Type:{{ reclamation.type }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ##### Newsletter & Testimonials Area End ##### -->
+
+
+
+    
+
+{% endblock %}

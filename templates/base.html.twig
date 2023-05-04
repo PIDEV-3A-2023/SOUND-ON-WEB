@@ -64,11 +64,16 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="{{ path('app_home') }}">Evenements</a></li>
+                                    <li><a href="{{ path('app_evenement_indexf') }}">Evenements</a></li>
                                     <li><a href="{{ path('app_front_office_album_list') }}">Albums</a></li>
                                     <li><a href="{{ path('app_front_office_categorie') }}">Catalogues</a></li>
                                     <li><a href="{{ path('app_front_office_produit_index') }}">Boutique</a></li>
-                                    <li><a href="{{ path('app_home') }}">Reclamation</a></li>
+                                    <li><a href="">Reclamation</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{{ path('app_reclamation_new',{'isBad':0}) }}">Passer une rec</a></li>
+                                            <li><a href="{{ path('app_reclamation_index_user', {'id': 1}) }}">Voir recs</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
 
                                 <!-- Login/Register & Cart Button -->

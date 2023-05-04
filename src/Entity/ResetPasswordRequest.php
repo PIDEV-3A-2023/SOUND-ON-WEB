@@ -18,6 +18,7 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     private ?int $id = null;
 
     #[ORM\ManyToOne]
+    // #[ORM\ManyToOne(mappedBy: 'idResetPassword', targetEntity: Utilisateur::class, orphanRemoval:true)]
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $user = null;
 

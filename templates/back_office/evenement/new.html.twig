@@ -1,0 +1,12 @@
+{% extends 'back_office/admin_dashboard/dashboard.html.twig' %}
+
+{% block title %}New Evenement{% endblock %}
+
+{% block content %}
+    <h4>Nouvel Evenement</h4>
+
+    {{ include('back_office/evenement/_form.html.twig') }}
+
+   
+  <a href="{{ path('app_evenement_index') }}"><button type="button" class="btn btn-primary btn-sm" style="margin-top:-53px; margin-left:680px;">Retour</button></a>
+{% endblock %}

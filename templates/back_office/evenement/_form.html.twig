@@ -1,0 +1,7 @@
+<div>
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    {{ form_widget(form) }}
+<button  class="btn btn-primary btn-sm" >{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}
+</div>

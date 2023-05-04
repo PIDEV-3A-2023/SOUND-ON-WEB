@@ -1,9 +1,8 @@
-{% include 'back_office/admin_dashboard/dashboard.html.twig' %}
+{% extends 'back_office/admin_dashboard/dashboard.html.twig' %}
 
 
 
-{% block body %}
-<main id="main" class="main">
+{% block content %}
 
     <div class="pagetitle">
         <h1>Utilisateur</h1>
@@ -55,5 +54,4 @@
 
     <a href="{{ path('app_utilisateur_new') }}">Create new</a>
     
-</main><!-- End #main -->
 {% endblock %}

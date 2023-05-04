@@ -15,6 +15,7 @@ class Reponse
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $message = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
